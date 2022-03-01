@@ -8,7 +8,7 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: HomePage(),
+    home: const HomePage(),
   ));
 }
 
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: HomeLoggedIn(),
     );
   }
