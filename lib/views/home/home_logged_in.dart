@@ -4,7 +4,7 @@ import 'package:gym_pal/views/home/home2.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
 import 'package:gym_pal/widgets/header.dart';
-import 'package:gym_pal/widgets/settings.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/footer.dart';
 
 class HomeLoggedIn extends StatefulWidget {
@@ -23,7 +23,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
       appBar:
           header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
       drawer: Drawer(
-        child: settings(context),
+        child: sidenav(context),
       ),
       body: Center(
         child: Column(

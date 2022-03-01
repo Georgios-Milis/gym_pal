@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-ListView settings(context) {
+import 'package:gym_pal/views/home/home_logged_in.dart';
+import 'package:gym_pal/views/home/home2.dart';
+
+ListView sidenav(context) {
   return ListView(
     padding: EdgeInsets.zero,
     children: [
       ListTile(
         leading: const Icon(Icons.close),
-        title: const Text('Menu'),
+        title: const Text(
+          'Menu',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         onTap: () {
           Navigator.pop(context);
         },
@@ -18,20 +24,18 @@ ListView settings(context) {
         leading: const Icon(Icons.favorite),
         title: const Text('Meet your Gym Pal!'),
         onTap: () {
-          // Update the state of the app
-          // ...
-          // Then close the drawer
-          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const HomeLoggedIn(),
+          ));
         },
       ),
       ListTile(
         leading: const Icon(Icons.contact_phone_outlined),
         title: const Text('Meet your Health Pal!'),
         onTap: () {
-          // Update the state of the app
-          // ...
-          // Then close the drawer
-          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const Home2(),
+          ));
         },
       ),
       ListTile(
