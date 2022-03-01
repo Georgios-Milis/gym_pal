@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gym_pal/views/home/home_logged_in.dart';
+import 'package:gym_pal/views/chart/weight_chart.dart';
 
 class Home2 extends StatefulWidget {
   const Home2({Key? key}) : super(key: key);
@@ -47,7 +48,12 @@ class _Home2 extends State<Home2> {
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WeightChart()),
+                   );
+                },
                 child: const Text("SHOW NOW!"),
               ),
             ),
