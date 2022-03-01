@@ -3,97 +3,15 @@ import 'package:http/http.dart' as http;
 import 'package:gym_pal/views/home/home2.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
+import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/settings.dart';
+import 'package:gym_pal/widgets/footer.dart';
+
 class HomeLoggedIn extends StatefulWidget {
   const HomeLoggedIn({Key? key}) : super(key: key);
 
   @override
   _HomeLoggedInState createState() => _HomeLoggedInState();
-}
-
-// This should be exported in a separate file
-class OurBottomBar extends StatelessWidget {
-  const OurBottomBar({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const <Widget>[
-          IconButton(
-            onPressed: null,
-            icon: Icon(null),
-          ),
-        ],
-      ),
-      color: Colors.deepPurpleAccent[700],
-    );
-  }
-}
-
-// This should be exported in a separate file
-class SideNav extends StatelessWidget {
-  const SideNav({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        ListTile(
-          leading: const Icon(Icons.close),
-          title: const Text('Menu'),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        const Divider(
-          color: Colors.grey,
-        ),
-        ListTile(
-          leading: const Icon(Icons.favorite),
-          title: const Text('Meet your Gym Pal!'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.contact_phone_outlined),
-          title: const Text('Meet your Health Pal!'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.info_outline),
-          title: const Text('Credits'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
-  }
 }
 
 class _HomeLoggedInState extends State<HomeLoggedIn> {
@@ -102,12 +20,10 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome, $username!'),
-        backgroundColor: Colors.deepPurpleAccent[700],
-      ),
-      drawer: const Drawer(
-        child: SideNav(),
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
+      drawer: Drawer(
+        child: settings(context),
       ),
       body: Center(
         child: Column(
@@ -171,7 +87,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
           ],
         ),
       ),
-      bottomNavigationBar: const OurBottomBar(),
+      bottomNavigationBar: footer(),
     );
   }
 }
