@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class HomeLoggedIn extends StatefulWidget {
@@ -24,7 +22,21 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
       body: Center(
         child: Column(
           children: <Widget>[
-            const Text("Hi! I'm Pandy your Gym Pal!"),
+            RichText(
+              text: const TextSpan(
+                text: "Hi! I'm ",
+                //style: DefaultTextStyle(),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "Pandy ",
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  TextSpan(text: "your Gym Pal!"),
+                ],
+              ),
+            ),
             const Text(
                 "Let's create some custom sessions so that we can work out together!"),
             SizedBox(
@@ -37,6 +49,9 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 onPressed: () {},
                 child: const Text("START NOW!"),
               ),
+            ),
+            const Divider(
+              color: Colors.blue,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
