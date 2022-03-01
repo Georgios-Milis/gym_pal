@@ -32,6 +32,7 @@ class _WorkoutsState extends State<Workouts> {
             ),
           );
         },
+        tooltip: "Add new workout",
         backgroundColor: Colors.tealAccent[200],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

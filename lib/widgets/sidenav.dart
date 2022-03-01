@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:gym_pal/views/home/home_logged_in.dart';
 import 'package:gym_pal/views/home/home2.dart';
 
+import 'package:gym_pal/views/settings.dart';
+import 'package:gym_pal/views/credits.dart';
+
 ListView sidenav(context) {
   return ListView(
     padding: EdgeInsets.zero,
@@ -42,20 +45,18 @@ ListView sidenav(context) {
         leading: const Icon(Icons.settings),
         title: const Text('Settings'),
         onTap: () {
-          // Update the state of the app
-          // ...
-          // Then close the drawer
-          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const Settings(),
+          ));
         },
       ),
       ListTile(
         leading: const Icon(Icons.info_outline),
         title: const Text('Credits'),
         onTap: () {
-          // Update the state of the app
-          // ...
-          // Then close the drawer
-          Navigator.pop(context);
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const Credits(),
+          ));
         },
       ),
     ],
