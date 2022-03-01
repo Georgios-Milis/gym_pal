@@ -9,6 +9,67 @@ class HomeLoggedIn extends StatefulWidget {
   _HomeLoggedInState createState() => _HomeLoggedInState();
 }
 
+class SideNav extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        ListTile(
+          leading: const Icon(Icons.close),
+          title: const Text('Menu'),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        const Divider(
+          color: Colors.grey,
+        ),
+        ListTile(
+          leading: const Icon(Icons.favorite),
+          title: const Text('Meet your Gym Pal!'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.contact_phone_outlined),
+          title: const Text('Meet your Health Pal!'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.info_outline),
+          title: const Text('Credits'),
+          onTap: () {
+            // Update the state of the app
+            // ...
+            // Then close the drawer
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+  }
+}
+
 class _HomeLoggedInState extends State<HomeLoggedIn> {
   String username = "George";
 
@@ -17,10 +78,9 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome, $username!'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
+      ),
+      drawer: Drawer(
+        child: SideNav(),
       ),
       body: Center(
         child: Column(
@@ -52,7 +112,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 child: const Text("START NOW!"),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewEditWorkoutWidget(),
+                    builder: (context) => const ViewEditWorkoutWidget(),
                   ));
                 },
               ),
