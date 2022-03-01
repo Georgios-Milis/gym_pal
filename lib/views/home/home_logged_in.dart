@@ -5,11 +5,37 @@ import 'package:gym_pal/views/workouts/workouts.dart';
 
 class HomeLoggedIn extends StatefulWidget {
   const HomeLoggedIn({Key? key}) : super(key: key);
+
   @override
   _HomeLoggedInState createState() => _HomeLoggedInState();
 }
 
+// This should be exported in a separate file
+class OurBottomBar extends StatelessWidget {
+  const OurBottomBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: const <Widget>[
+          IconButton(
+            onPressed: null,
+            icon: Icon(null),
+          ),
+        ],
+      ),
+      color: Colors.deepPurpleAccent[700],
+    );
+  }
+}
+
+// This should be exported in a separate file
 class SideNav extends StatelessWidget {
+  const SideNav({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -78,8 +104,9 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome, $username!'),
+        backgroundColor: Colors.deepPurpleAccent[700],
       ),
-      drawer: Drawer(
+      drawer: const Drawer(
         child: SideNav(),
       ),
       body: Center(
@@ -93,7 +120,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                   TextSpan(
                     text: "Pandy ",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.deepPurpleAccent,
                     ),
                   ),
                   TextSpan(text: "your Gym Pal!"),
@@ -110,15 +137,18 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               width: 200,
               child: ElevatedButton(
                 child: const Text("START NOW!"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurpleAccent[700],
+                ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ViewEditWorkoutWidget(),
+                    builder: (context) => const Workouts(),
                   ));
                 },
               ),
             ),
             const Divider(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -141,12 +171,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: const <Widget>[],
-        ),
-        color: Colors.blue,
-      ),
+      bottomNavigationBar: const OurBottomBar(),
     );
   }
 }
