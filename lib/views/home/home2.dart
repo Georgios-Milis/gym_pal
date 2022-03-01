@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:gym_pal/views/home/home_logged_in.dart';
+
 import 'package:gym_pal/views/chart/weight_chart.dart';
 
 import 'package:gym_pal/widgets/header.dart';
-import 'package:gym_pal/widgets/settings.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/footer.dart';
 
 class Home2 extends StatefulWidget {
@@ -19,10 +19,10 @@ class _Home2 extends State<Home2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: 
-        header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
-        drawer: Drawer(
-        child: settings(context),
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
+      drawer: Drawer(
+        child: sidenav(context),
       ),
       body: Center(
         child: Column(
