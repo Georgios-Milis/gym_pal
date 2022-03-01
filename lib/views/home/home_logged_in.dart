@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:gym_pal/views/home/home2.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 

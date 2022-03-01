@@ -1,6 +1,5 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ViewEditWorkoutWidget extends StatefulWidget {
   const ViewEditWorkoutWidget({Key? key}) : super(key: key);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:gym_pal/views/home/home_logged_in.dart';
 import 'package:gym_pal/views/chart/weight_chart.dart';
 
@@ -49,10 +50,11 @@ class _Home2 extends State<Home2> {
               width: 200,
               child: ElevatedButton(
                 onPressed: () {
-                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const WeightChart()),
-                   );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WeightChart()),
+                  );
                 },
                 child: const Text("SHOW NOW!"),
               ),
@@ -64,7 +66,9 @@ class _Home2 extends State<Home2> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  onPressed: () {Navigator.pop(context);},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   icon: Image.asset('../../../assets/cardio-grey.png'),
                 ),
                 IconButton(

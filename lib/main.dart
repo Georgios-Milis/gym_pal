@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:html';
+import 'package:http/http.dart' as http;
 import 'package:gym_pal/views/home/home_logged_in.dart';
 
 void main() {
