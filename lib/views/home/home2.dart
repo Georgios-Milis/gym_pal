@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gym_pal/views/home/home_logged_in.dart';
 
-import 'package:gym_pal/views/home/home2.dart';
-import 'package:gym_pal/views/workouts/workouts.dart';
-
-class HomeLoggedIn extends StatefulWidget {
-  const HomeLoggedIn({Key? key}) : super(key: key);
+class Home2 extends StatefulWidget {
+  const Home2({Key? key}) : super(key: key);
   @override
-  _HomeLoggedInState createState() => _HomeLoggedInState();
+  _Home2 createState() => _Home2();
 }
 
-class _HomeLoggedInState extends State<HomeLoggedIn> {
+class _Home2 extends State<Home2> {
   String username = "George";
 
   @override
@@ -31,30 +29,26 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 //style: DefaultTextStyle(),
                 children: <TextSpan>[
                   TextSpan(
-                    text: "Pandy ",
+                    text: "Dr. Tiger ",
                     style: TextStyle(
                       color: Colors.blue,
                     ),
                   ),
-                  TextSpan(text: "your Gym Pal!"),
+                  TextSpan(text: "your Health Pal!"),
                 ],
               ),
             ),
             const Text(
-                "Let's create some custom sessions so that we can work out together!"),
+                "I will help you monitor your health and achieve your goals with your workouts!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/Panda.png'),
+              child: Image.asset('../../../assets/tiger.png'),
             ),
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                child: const Text("START NOW!"),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ViewEditWorkoutWidget(),
-                  ));
-                },
+                onPressed: () {},
+                child: const Text("SHOW NOW!"),
               ),
             ),
             const Divider(
@@ -64,17 +58,12 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('../../../assets/cardio-purple.png'),
+                  onPressed: () {Navigator.pop(context);},
+                  icon: Image.asset('../../../assets/cardio-grey.png'),
                 ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home2()),
-                    );
-                  },
-                  icon: Image.asset('../../../assets/test-results-grey.png'),
+                  onPressed: () {},
+                  icon: Image.asset('../../../assets/test-results-purple.png'),
                 ),
               ],
             ),
