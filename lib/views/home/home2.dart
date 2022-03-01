@@ -3,6 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:gym_pal/views/home/home_logged_in.dart';
 import 'package:gym_pal/views/chart/weight_chart.dart';
 
+import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/settings.dart';
+import 'package:gym_pal/widgets/footer.dart';
+
 class Home2 extends StatefulWidget {
   const Home2({Key? key}) : super(key: key);
   @override
@@ -15,12 +19,10 @@ class _Home2 extends State<Home2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome, $username!'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
+      appBar: 
+        header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
+        drawer: Drawer(
+        child: settings(context),
       ),
       body: Center(
         child: Column(
@@ -33,7 +35,7 @@ class _Home2 extends State<Home2> {
                   TextSpan(
                     text: "Dr. Tiger ",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.deepPurpleAccent,
                     ),
                   ),
                   TextSpan(text: "your Health Pal!"),
@@ -60,7 +62,7 @@ class _Home2 extends State<Home2> {
               ),
             ),
             const Divider(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -80,12 +82,7 @@ class _Home2 extends State<Home2> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: const <Widget>[],
-        ),
-        color: Colors.blue,
-      ),
+      bottomNavigationBar: footer(),
     );
   }
 }
