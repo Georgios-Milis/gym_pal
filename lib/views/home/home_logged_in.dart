@@ -5,7 +5,7 @@ import 'package:gym_pal/views/workouts/workouts.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/footer.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class HomeLoggedIn extends StatefulWidget {
   const HomeLoggedIn({Key? key}) : super(key: key);
@@ -53,8 +53,15 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               width: 200,
               child: ElevatedButton(
                 child: const Text("START NOW!"),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurpleAccent[700],
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.deepPurpleAccent,
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -87,7 +94,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
           ],
         ),
       ),
-      bottomNavigationBar: footer(),
+      bottomNavigationBar: bottom(),
     );
   }
 }

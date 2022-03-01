@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/footer.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class ViewEditWorkoutWidget extends StatefulWidget {
   const ViewEditWorkoutWidget({Key? key}) : super(key: key);
@@ -16,11 +16,11 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header(context, isAppTitle: false, titleText: 'Add workout'),
+      appBar: header(context, isAppTitle: false, titleText: 'Add Workout'),
       drawer: Drawer(
         child: sidenav(context),
       ),
-      bottomNavigationBar: footer(),
+      bottomNavigationBar: bottom(),
     );
   }
 }
