@@ -18,21 +18,23 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
           ),
         ),
         body: Center(
-          child: <Widget>[
-            Text("Hi! I'm Pandy your Gym Pal!"),
-            Image.asset('assets/Panda.png'),
-          ],
+          child: Column(
+            children: <Widget>[
+              const Text("Hi! I'm Pandy your Gym Pal!"),
+              Image.asset('../../../assets/Panda.png'),
+            ],
+          ),
         ),
         bottomNavigationBar: BottomAppBar(
           child: Row(
             children: <Widget>[
               IconButton(
                 onPressed: () {},
-                icon: Image.asset('assets/cardio-purple.png'),
+                icon: Image.asset('../../../assets/cardio-purple.png'),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Image.asset('assets/test-results-grey.png'),
+                icon: Image.asset('../../../assets/test-results-grey.png'),
               ),
             ],
           ),
