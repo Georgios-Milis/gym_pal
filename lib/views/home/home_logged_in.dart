@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gym_pal/views/workouts/workouts.dart';
 
 class HomeLoggedIn extends StatefulWidget {
   const HomeLoggedIn({Key? key}) : super(key: key);
@@ -110,8 +111,12 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                onPressed: () {},
                 child: const Text("START NOW!"),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ViewEditWorkoutWidget(),
+                  ));
+                },
               ),
             ),
             const Divider(
