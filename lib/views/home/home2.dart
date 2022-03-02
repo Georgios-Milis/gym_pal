@@ -51,17 +51,22 @@ class _Home2 extends State<Home2> {
             SizedBox(
               width: 200,
               child: ElevatedButton(
-                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurpleAccent[700],
+                child: const Text("START NOW!"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.deepPurpleAccent,
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WeightChart()),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const WeightChart(),
+                  ));
                 },
-                child: const Text("SHOW NOW!"),
               ),
             ),
             const Divider(

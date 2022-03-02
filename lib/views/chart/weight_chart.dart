@@ -3,6 +3,9 @@ import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 
+
+
+
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
   @override
@@ -16,14 +19,16 @@ class _WeightChartInState extends State<WeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  header(context, isAppTitle: false, titleText: 'Weight Chart'),
-       drawer: Drawer(
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Weight Chart'),
+      drawer: Drawer(
         child: sidenav(context),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            const Text("Log your weight now!"),
+            const Text(
+                "Log your weight now!"),
             SizedBox(
               width: 200,
               child: Image.asset('../../../assets/tiger.png'),
@@ -33,14 +38,14 @@ class _WeightChartInState extends State<WeightChart> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const <Widget>[
+              children: <Widget>[
                 IconButton(
-                  onPressed: null,
-                  icon : const Icon(Icons.camera_alt)
+                  onPressed: (){},
+                  icon : Icon(Icons.camera_alt)
                 ),
                 IconButton(
-                  icon : const Icon(Icons.create_rounded),
-                  onPressed: null, // (){openDialog}
+                  icon : Icon(Icons.create_rounded),
+                  onPressed: (){ openDialog(); } // (){openDialog}
                 ),
               ],
             )
@@ -50,7 +55,33 @@ class _WeightChartInState extends State<WeightChart> {
       bottomNavigationBar: bottom(),
     );
   }
+  Future openDialog() => showDialog(
+  context: context, 
+  builder: (context)=> AlertDialog(
+    title: Text('Your Weight'),
+    content: TextField(
+      autofocus: true,
+      decoration: InputDecoration(hintText:'Enter your weight')
+    ),
+    actions: [
+       TextButton(
+        child: Text ('Cancel', style: TextStyle(
+          color: Colors.red,
+        )),
+        onPressed:  Navigator.of(context).pop,
+      ),
+      TextButton(
+        child: Text ('Log', style: TextStyle(
+          color: Colors.deepPurpleAccent,
+        )),
+        onPressed:  Navigator.of(context).pop,
+      ),
+    ],
+  ),
+);
+
 }
+
 /*
 Future openDialog() => showDialog(
   context: context, 
@@ -67,8 +98,9 @@ Future openDialog() => showDialog(
       ),
     ],
   ),
-);
+);1
 
 void submit() {
   Navigator.of(context).pop();
 }*/
+
