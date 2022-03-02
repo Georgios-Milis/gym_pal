@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
+import 'package:gym_pal/widgets/footer.dart';
 
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
@@ -7,16 +10,15 @@ class WeightChart extends StatefulWidget {
 }
 
 
+
+
 class _WeightChartInState extends State<WeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Weight Session'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
+      appBar:  header(context, isAppTitle: false, titleText: 'Weight Chart'),
+       drawer: Drawer(
+        child: sidenav(context),
       ),
       body: Center(
         child: Column(
@@ -26,6 +28,9 @@ class _WeightChartInState extends State<WeightChart> {
               width: 200,
               child: Image.asset('../../../assets/tiger.png'),
             ),
+            const Divider(
+              color: Colors.deepPurpleAccent,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const <Widget>[
@@ -34,20 +39,36 @@ class _WeightChartInState extends State<WeightChart> {
                   icon : const Icon(Icons.camera_alt)
                 ),
                 IconButton(
-                  onPressed: null,
-                  icon : const Icon(Icons.create_rounded)
+                  icon : const Icon(Icons.create_rounded),
+                  onPressed: null, // (){openDialog}
                 ),
               ],
             )
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: const <Widget>[],
-        ),
-        color: Colors.blue,
-      ),
+      bottomNavigationBar: footer(),
     );
   }
 }
+/*
+Future openDialog() => showDialog(
+  context: context, 
+  builder: (context)=> AlertDialog(
+    title: Text('Your Weight'),
+    content: TextField(
+      autofocus:true,
+      decoration: InputDecoration(hintText:'Enter your weight')
+    ),
+    actions: [
+      TextButton(
+        child: Text ('SUBMIT');
+        onPressed: submit,
+      ),
+    ],
+  ),
+);
+
+void submit() {
+  Navigator.of(context).pop();
+}*/

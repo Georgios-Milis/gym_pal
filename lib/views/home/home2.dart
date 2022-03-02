@@ -51,6 +51,9 @@ class _Home2 extends State<Home2> {
             SizedBox(
               width: 200,
               child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                  primary: Colors.deepPurpleAccent[700],
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
