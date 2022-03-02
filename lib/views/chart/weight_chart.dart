@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/footer.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _WeightChartInState extends State<WeightChart> {
           ],
         ),
       ),
-      bottomNavigationBar: footer(),
+      bottomNavigationBar: bottom(),
     );
   }
 }
