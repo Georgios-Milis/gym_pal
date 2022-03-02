@@ -6,7 +6,6 @@ class WeightChart extends StatefulWidget {
   _WeightChartInState createState() => _WeightChartInState();
 }
 
-
 class _WeightChartInState extends State<WeightChart> {
   @override
   Widget build(BuildContext context) {
@@ -24,19 +23,14 @@ class _WeightChartInState extends State<WeightChart> {
             const Text("Log your weight now!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/tiger.png'),
+              child: Image.asset('/assets/images/tiger.png'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: const <Widget>[
+                IconButton(onPressed: null, icon: const Icon(Icons.camera_alt)),
                 IconButton(
-                  onPressed: null,
-                  icon : const Icon(Icons.camera_alt)
-                ),
-                IconButton(
-                  onPressed: null,
-                  icon : const Icon(Icons.create_rounded)
-                ),
+                    onPressed: null, icon: const Icon(Icons.create_rounded)),
               ],
             )
           ],

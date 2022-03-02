@@ -107,7 +107,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 "Let's create some custom sessions so that we can work out together!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/Panda.png'),
+              child: Image.asset('assets/images/Panda.png'),
             ),
             SizedBox(
               width: 200,
@@ -128,7 +128,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               children: <Widget>[
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset('../../../assets/cardio-purple.png'),
+                  icon: Image.asset('assets/images/cardio-purple.png'),
                 ),
                 IconButton(
                   onPressed: () {
@@ -137,7 +137,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                       MaterialPageRoute(builder: (context) => const Home2()),
                     );
                   },
-                  icon: Image.asset('../../../assets/test-results-grey.png'),
+                  icon: Image.asset('assets/images/test-results-grey.png'),
                 ),
               ],
             ),
