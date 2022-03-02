@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-BottomAppBar footer() {
+BottomAppBar bottom() {
   return BottomAppBar(
     child: Row(
       mainAxisSize: MainAxisSize.max,

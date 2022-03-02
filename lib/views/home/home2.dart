@@ -5,7 +5,7 @@ import 'package:gym_pal/views/chart/weight_chart.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/footer.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class Home2 extends StatefulWidget {
   const Home2({Key? key}) : super(key: key);
@@ -85,7 +85,7 @@ class _Home2 extends State<Home2> {
           ],
         ),
       ),
-      bottomNavigationBar: footer(),
+      bottomNavigationBar: bottom(),
     );
   }
 }
