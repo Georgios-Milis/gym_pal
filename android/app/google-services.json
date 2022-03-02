@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1025776077535",
+    "project_id": "hci0321",
+    "storage_bucket": "hci0321.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025776077535:android:b6c16699b351ff2da0376a",
+        "android_client_info": {
+          "package_name": "com.se2104.gympal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025776077535-97m53ug0knco893aib15l4f4345phv7c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.se2104.gympal",
+            "certificate_hash": "2b7840eb78878b0701294538fae2777509708a66"
+          }
+        },
+        {
+          "client_id": "1025776077535-tnjcg2a5h49gudvi9r62hd4df5h7baas.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8EBmpn5QZ3IW89DnVKONpW-Ipy338-jE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025776077535-tnjcg2a5h49gudvi9r62hd4df5h7baas.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
