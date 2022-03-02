@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
-
+import 'package:gym_pal/views/chart/chart.dart';
 
 
 
@@ -24,7 +24,8 @@ class _WeightChartInState extends State<WeightChart> {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      body: Center(
+      body:
+       Center(
         child: Column(
           children: <Widget>[
             const Text(
