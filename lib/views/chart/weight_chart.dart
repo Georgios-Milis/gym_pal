@@ -4,40 +4,32 @@ import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/views/chart/chart2.dart';
 
-
-
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
   @override
   _WeightChartInState createState() => _WeightChartInState();
 }
 
-
-
-
 class _WeightChartInState extends State<WeightChart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          header(context, isAppTitle: false, titleText: 'Weight Chart'),
+      appBar: header(context, isAppTitle: false, titleText: 'Weight Chart'),
       drawer: Drawer(
         child: sidenav(context),
       ),
-      
-      body:
-       Center(
+      body: Center(
         child: Column(
           children: <Widget>[
-             SizedBox(
+            SizedBox(
               width: 200,
-              height:200,
+              height: 200,
               child: SimpleBarChart.withoutData(false),
             ),
             const Text("Log your weight now!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/tiger.png'),
+              child: Image.asset('assets/tiger.png'),
             ),
             const Divider(
               color: Colors.deepPurpleAccent,
@@ -46,13 +38,16 @@ class _WeightChartInState extends State<WeightChart> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 IconButton(
-                  onPressed: (){SimpleBarChart.withoutData(false);},
-                  icon : Icon(Icons.camera_alt)
-                ),
+                    onPressed: () {
+                      SimpleBarChart.withoutData(false);
+                    },
+                    icon: Icon(Icons.camera_alt)),
                 IconButton(
-                  icon : Icon(Icons.create_rounded),
-                  onPressed: (){ openDialog(); } // (){openDialog}
-                ),
+                    icon: Icon(Icons.create_rounded),
+                    onPressed: () {
+                      openDialog();
+                    } // (){openDialog}
+                    ),
               ],
             )
           ],
@@ -61,31 +56,30 @@ class _WeightChartInState extends State<WeightChart> {
       bottomNavigationBar: bottom(),
     );
   }
+
   Future openDialog() => showDialog(
-  context: context, 
-  builder: (context)=> AlertDialog(
-    title: Text('Your Weight'),
-    content: TextField(
-      autofocus: true,
-      decoration: InputDecoration(hintText:'Enter your weight')
-    ),
-    actions: [
-       TextButton(
-        child: Text ('Cancel', style: TextStyle(
-          color: Color.fromARGB(255, 37, 34, 34),
-        )),
-        onPressed:  Navigator.of(context).pop,
-      ),
-      TextButton(
-        child: Text ('Log', style: TextStyle(
-          color: Colors.deepPurpleAccent,
-        )),
-        onPressed:  Navigator.of(context).pop,
-      ),
-    ],
-  ),
-);
-
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Your Weight'),
+          content: TextField(
+              autofocus: true,
+              decoration: InputDecoration(hintText: 'Enter your weight')),
+          actions: [
+            TextButton(
+              child: Text('Cancel',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 37, 34, 34),
+                  )),
+              onPressed: Navigator.of(context).pop,
+            ),
+            TextButton(
+              child: Text('Log',
+                  style: TextStyle(
+                    color: Colors.deepPurpleAccent,
+                  )),
+              onPressed: Navigator.of(context).pop,
+            ),
+          ],
+        ),
+      );
 }
-
-

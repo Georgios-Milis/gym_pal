@@ -46,7 +46,7 @@ class _Home2 extends State<Home2> {
                 "I will help you monitor your health and achieve your goals with your workouts!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/tiger.png'),
+              child: Image.asset('assets/tiger.png'),
             ),
             SizedBox(
               width: 200,
@@ -79,11 +79,11 @@ class _Home2 extends State<Home2> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Image.asset('../../../assets/cardio-grey.png'),
+                  icon: Image.asset('assets/cardio-grey.png'),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Image.asset('../../../assets/test-results-purple.png'),
+                  icon: Image.asset('assets/test-results-purple.png'),
                 ),
               ],
             ),

@@ -61,6 +61,44 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                 padding: EdgeInsets.all(8.0),
                 child: Text("Customize your workout! Is it repetitive?"),
               ),
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        const Text("Sets:"),
+                        IconButton(
+                          onPressed: null,
+                          icon: Icon(Icons.arrow_upward),
+                        ),
+                        IconButton(
+                          onPressed: null,
+                          icon: Icon(Icons.arrow_downward),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        const Text("Reps:"),
+                        IconButton(
+                          onPressed: null,
+                          icon: Icon(Icons.arrow_upward),
+                        ),
+                        IconButton(
+                          onPressed: null,
+                          icon: Icon(Icons.arrow_downward),
+                        ),
+                      ],
+                    ),
+                    const Text("Hey pal! Want audio feedback while training?"),
+                    SizedBox(
+                      width: 200,
+                      child:
+                          Image.asset('../../../assets/panda-victorious.png'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
