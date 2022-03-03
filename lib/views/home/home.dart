@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
 
   login() {
     print('clicked');
-    // googleSignIn.signIn();
+    googleSignIn.signIn();
   }
 
   Widget buildAuthScreen() {
@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
             const Image(
                 image: AssetImage('assets/images/welcome_to_gym_buddy3.png')),
             GestureDetector(
-              onTap: () => login,
+              onTap: () => login(),
               child: Container(
                 width: 260.0,
                 height: 60.0,
