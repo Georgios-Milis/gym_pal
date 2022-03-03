@@ -29,9 +29,12 @@ class _WeightChartInState extends State<WeightChart> {
        Center(
         child: Column(
           children: <Widget>[
-            SimpleBarChart.withoutData(false),
-            const Text(
-                "Log your weight now!"),
+             SizedBox(
+              width: 200,
+              height:200,
+              child: SimpleBarChart.withoutData(false),
+            ),
+            const Text("Log your weight now!"),
             SizedBox(
               width: 200,
               child: Image.asset('../../../assets/tiger.png'),
