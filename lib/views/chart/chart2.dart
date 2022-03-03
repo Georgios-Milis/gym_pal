@@ -2,10 +2,11 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class SimpleBarChart extends StatelessWidget {
-  List<charts.Series<dynamic, String>> seriesList;
-  bool animate;
+  final List<charts.Series<dynamic, String>> seriesList;
+  final bool animate;
 
-  SimpleBarChart(this.seriesList, this.animate, {Key? key}) : super(key: key);
+  const SimpleBarChart(this.seriesList, this.animate, {Key? key})
+      : super(key: key);
 
   SimpleBarChart.withoutData(this.animate, {Key? key})
       : seriesList = _createSampleData(),
