@@ -1,11 +1,11 @@
-import 'package:charts_flutter/flutter.dart' as charts;
+/*import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class SimpleBarChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
+  List<charts.Series> seriesList;
+  bool animate = false;
 
-  SimpleBarChart(this.seriesList, {this.animate});
+  SimpleBarChart(this.seriesList, this.animate);
 
   /// Creates a [BarChart] with sample data and no transition.
   factory SimpleBarChart.withSampleData() {
@@ -21,13 +21,13 @@ class SimpleBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return new charts.BarChart(
       seriesList,
-      animate: animate,
+      animate: animate
     );
   }
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<KgMonth, String>> _createSampleData() {
-    final data = [
+     final data = [
       new KgMonth('Sep', 80),
       new KgMonth('Oct', 85),
       new KgMonth('Nov', 81),
@@ -40,7 +40,7 @@ class SimpleBarChart extends StatelessWidget {
         colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
         domainFn: (KgMonth kg, _) => kg.month,
         measureFn: (KgMonth kg, _) => kg.kg,
-        data: data,
+        data: data
       )
     ];
   }
@@ -52,4 +52,4 @@ class KgMonth {
   final int kg;
 
   KgMonth(this.month, this.kg);
-}
+}*/
