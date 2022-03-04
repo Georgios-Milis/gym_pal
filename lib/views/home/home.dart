@@ -53,11 +53,18 @@ class _HomeState extends State<Home> {
     googleSignIn.signIn();
   }
 
-  Widget buildAuthScreen() {
-    return ElevatedButton(
-      onPressed: logout,
-      child: const Text('Logout'),
-    );
+  Scaffold buildAuthScreen() {
+    // return ElevatedButton(
+    //   onPressed: logout,
+    //   child: const Text('Logout'),
+    // );
+    return Scaffold(
+      body: PageView(
+        children: <Widget>[
+
+        ]
+      )
+    )
   }
 
   Scaffold buildUnAuthScreen() {
