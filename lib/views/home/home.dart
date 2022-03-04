@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'package:gym_pal/views/chart/weight_chart.dart';
+import 'package:gym_pal/views/home/home_gym_pal.dart';
+import 'package:gym_pal/views/home/home_health_pal.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -14,10 +16,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool isAuth = false;
+  late PageController pageController;
+  int pageIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    pageController = PageController();
     // Detects when user signed in
     googleSignIn.onCurrentUserChanged.listen((account) {
       handleSignIn(account);
@@ -38,7 +43,6 @@ class _HomeState extends State<Home> {
       setState(() {
         isAuth = true;
       });
-      // handleSignIn(account);
     } else {
       setState(() {
         isAuth = false;
@@ -50,9 +54,29 @@ class _HomeState extends State<Home> {
     googleSignIn.signOut();
   }
 
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   login() {
     print('clicked');
     googleSignIn.signIn();
+  }
+
+  onPageChanged(int pageIndex) {
+    setState(() {
+      this.pageIndex = pageIndex;
+    });
+  }
+
+  onTap(int pageIndex) {
+    pageController.animateToPage(
+      pageIndex,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   Scaffold buildAuthScreen() {
@@ -63,7 +87,26 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         children: const <Widget>[
-          WeightChart(),
+          HomeGymPal(),
+          HomeHealthPal(),
+        ],
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        physics: const AlwaysScrollableScrollPhysics(),
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: pageIndex,
+        onTap: onTap,
+        backgroundColor: Theme.of(context).primaryColor,
+        activeColor: Colors.white,
+        inactiveColor: Colors.white.withAlpha(75),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+          ),
         ],
       ),
     );
