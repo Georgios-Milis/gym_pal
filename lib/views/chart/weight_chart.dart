@@ -24,13 +24,14 @@ class _WeightChartInState extends State<WeightChart> {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      
       body:
        Center(
         child: Column(
           children: <Widget>[
-             SizedBox(
-              width: 200,
+            const Text("Weight Chart",textAlign: TextAlign.left, style: TextStyle(fontWeight: FontWeight.bold)),
+             const Text("Last 8 months"),
+            SizedBox(
+              width: 400,
               height:200,
               child: SimpleBarChart.withoutData(false),
             ),

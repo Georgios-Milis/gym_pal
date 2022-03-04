@@ -20,10 +20,14 @@ class SimpleBarChart extends StatelessWidget {
   /// Create one series with sample hard coded data.
   static List<charts.Series<KgMonth, String>> _createSampleData() {
     final data = [
-      KgMonth('Sep', 80),
+      KgMonth('Jul', 75),
+      KgMonth('Aug', 80),
+      KgMonth('Sep', 83),
       KgMonth('Oct', 85),
       KgMonth('Nov', 81),
       KgMonth('Dec', 76),
+      KgMonth('Jan', 80),
+      KgMonth('Feb', 82),
     ];
 
     return [
