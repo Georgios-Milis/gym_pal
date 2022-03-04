@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
     // );
     return Scaffold(
       body: PageView(
-        children: <Widget>[
+        children: const <Widget>[
           WeightChart(),
         ],
       ),

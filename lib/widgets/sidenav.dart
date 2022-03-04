@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:gym_pal/views/home/home_logged_in.dart';
-import 'package:gym_pal/views/home/home2.dart';
+import 'package:gym_pal/views/home/home_gym_pal.dart';
+import 'package:gym_pal/views/home/home_health_pal.dart';
 
-import 'package:gym_pal/views/settings.dart';
-import 'package:gym_pal/views/credits.dart';
+import 'package:gym_pal/views/misc/settings.dart';
+import 'package:gym_pal/views/misc/credits.dart';
 
 ListView sidenav(context) {
   return ListView(
-    padding: EdgeInsets.zero,
+    padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
     children: [
       ListTile(
         leading: const Icon(Icons.close),
@@ -28,7 +28,7 @@ ListView sidenav(context) {
         title: const Text('Meet your Gym Pal!'),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const HomeLoggedIn(),
+            builder: (context) => const HomeGymPal(),
           ));
         },
       ),
@@ -37,7 +37,7 @@ ListView sidenav(context) {
         title: const Text('Meet your Health Pal!'),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Home2(),
+            builder: (context) => const HomeHealthPal(),
           ));
         },
       ),

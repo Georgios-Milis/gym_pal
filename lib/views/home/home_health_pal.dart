@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:gym_pal/views/home/home2.dart';
-import 'package:gym_pal/views/workouts/workouts.dart';
+
+import 'package:gym_pal/views/chart/weight_chart.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 
-class HomeLoggedIn extends StatefulWidget {
-  const HomeLoggedIn({Key? key}) : super(key: key);
-
+class HomeHealthPal extends StatefulWidget {
+  const HomeHealthPal({Key? key}) : super(key: key);
   @override
-  _HomeLoggedInState createState() => _HomeLoggedInState();
+  _Home2 createState() => _Home2();
 }
 
-class _HomeLoggedInState extends State<HomeLoggedIn> {
+class _Home2 extends State<HomeHealthPal> {
   String username = "George";
 
   @override
@@ -34,20 +32,20 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 //style: DefaultTextStyle(),
                 children: <TextSpan>[
                   TextSpan(
-                    text: "Pandy ",
+                    text: "Dr. Tiger ",
                     style: TextStyle(
                       color: Colors.deepPurpleAccent,
                     ),
                   ),
-                  TextSpan(text: "your Gym Pal!"),
+                  TextSpan(text: "your Health Pal!"),
                 ],
               ),
             ),
             const Text(
-                "Let's create some custom sessions so that we can work out together!"),
+                "I will help you monitor your health and achieve your goals with your workouts!"),
             SizedBox(
               width: 200,
-              child: Image.asset('assets/images/Panda.png'),
+              child: Image.asset('assets/images/tiger.png'),
             ),
             SizedBox(
               width: 200,
@@ -65,7 +63,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Workouts(),
+                    builder: (context) => const WeightChart(),
                   ));
                 },
               ),
@@ -77,17 +75,14 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('assets/images/cardio-purple.png'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Image.asset('assets/images/cardio-grey.png'),
                 ),
                 IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Home2()),
-                    );
-                  },
-                  icon: Image.asset('assets/images/test-results-grey.png'),
+                  onPressed: () {},
+                  icon: Image.asset('assets/images/test-results-purple.png'),
                 ),
               ],
             ),

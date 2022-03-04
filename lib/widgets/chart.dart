@@ -33,7 +33,13 @@ class SimpleBarChart extends StatelessWidget {
     return [
       charts.Series<KgMonth, String>(
           id: 'Sales',
-          colorFn: (KgMonth m, __)  { if (m.month == 'Feb') return charts.ColorUtil.fromDartColor(Colors.deepPurpleAccent); else return charts.ColorUtil.fromDartColor(Colors.grey);} ,
+          colorFn: (KgMonth m, __) {
+            if (m.month == 'Feb') {
+              return charts.ColorUtil.fromDartColor(Colors.deepPurpleAccent);
+            } else {
+              return charts.ColorUtil.fromDartColor(Colors.grey);
+            }
+          },
           domainFn: (KgMonth kg, _) => kg.month,
           measureFn: (KgMonth kg, _) => kg.kg,
           data: data)

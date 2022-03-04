@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -147,7 +146,8 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                           "Hey pal! Want audio feedback while training?"),
                       SizedBox(
                         width: 200,
-                        child: Image.asset('assets/panda-victorious.png'),
+                        child:
+                            Image.asset('assets/images/panda-victorious.png'),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
