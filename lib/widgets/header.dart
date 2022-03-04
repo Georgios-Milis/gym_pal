@@ -15,7 +15,6 @@ AppBar header(context,
       ),
       overflow: TextOverflow.ellipsis,
     ),
-    centerTitle: true,
-    backgroundColor: Theme.of(context).colorScheme.secondary,
+    backgroundColor: Colors.deepPurpleAccent[700],
   );
 }

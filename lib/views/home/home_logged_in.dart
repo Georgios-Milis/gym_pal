@@ -4,72 +4,14 @@ import 'package:gym_pal/views/home/home2.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
 import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class HomeLoggedIn extends StatefulWidget {
   const HomeLoggedIn({Key? key}) : super(key: key);
+
   @override
   _HomeLoggedInState createState() => _HomeLoggedInState();
-}
-
-class SideNav extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        ListTile(
-          leading: const Icon(Icons.close),
-          title: const Text('Menu'),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        const Divider(
-          color: Colors.grey,
-        ),
-        ListTile(
-          leading: const Icon(Icons.favorite),
-          title: const Text('Meet your Gym Pal!'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.contact_phone_outlined),
-          title: const Text('Meet your Health Pal!'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.info_outline),
-          title: const Text('Credits'),
-          onTap: () {
-            // Update the state of the app
-            // ...
-            // Then close the drawer
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
-  }
 }
 
 class _HomeLoggedInState extends State<HomeLoggedIn> {
@@ -78,12 +20,10 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: header(context,
-          isAppTitle: false,
-          titleText: 'Welcome, $username!',
-          removeBackButton: true),
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
       drawer: Drawer(
-        child: SideNav(),
+        child: sidenav(context),
       ),
       body: Center(
         child: Column(
@@ -96,7 +36,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
                   TextSpan(
                     text: "Pandy ",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.deepPurpleAccent,
                     ),
                   ),
                   TextSpan(text: "your Gym Pal!"),
@@ -113,15 +53,25 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
               width: 200,
               child: ElevatedButton(
                 child: const Text("START NOW!"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.deepPurpleAccent,
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ViewEditWorkoutWidget(),
+                    builder: (context) => const Workouts(),
                   ));
                 },
               ),
             ),
             const Divider(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -144,12 +94,7 @@ class _HomeLoggedInState extends State<HomeLoggedIn> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: const <Widget>[],
-        ),
-        color: Colors.blue,
-      ),
+      bottomNavigationBar: bottom(),
     );
   }
 }

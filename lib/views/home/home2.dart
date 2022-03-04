@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:gym_pal/views/home/home_logged_in.dart';
+
 import 'package:gym_pal/views/chart/weight_chart.dart';
+
+import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
+import 'package:gym_pal/widgets/bottom.dart';
 
 class Home2 extends StatefulWidget {
   const Home2({Key? key}) : super(key: key);
@@ -15,12 +19,10 @@ class _Home2 extends State<Home2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome, $username!'),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
+      drawer: Drawer(
+        child: sidenav(context),
       ),
       body: Center(
         child: Column(
@@ -33,7 +35,7 @@ class _Home2 extends State<Home2> {
                   TextSpan(
                     text: "Dr. Tiger ",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.deepPurpleAccent,
                     ),
                   ),
                   TextSpan(text: "your Health Pal!"),
@@ -44,23 +46,31 @@ class _Home2 extends State<Home2> {
                 "I will help you monitor your health and achieve your goals with your workouts!"),
             SizedBox(
               width: 200,
-              child: Image.asset('/assets/images/tiger.png'),
+              child: Image.asset('assets/tiger.png'),
             ),
             SizedBox(
               width: 200,
               child: ElevatedButton(
+                child: const Text("START NOW!"),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.deepPurpleAccent,
+                  ),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                  ),
+                ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WeightChart()),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const WeightChart(),
+                  ));
                 },
-                child: const Text("SHOW NOW!"),
               ),
             ),
             const Divider(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -80,12 +90,7 @@ class _Home2 extends State<Home2> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: const <Widget>[],
-        ),
-        color: Colors.blue,
-      ),
+      bottomNavigationBar: bottom(),
     );
   }
 }

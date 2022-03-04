@@ -7,7 +7,8 @@ void main() {
     title: 'Gym Pal',
     theme: ThemeData(
       primarySwatch: Colors.purple,
-      colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.teal),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
     home: const Home(),
   ));
