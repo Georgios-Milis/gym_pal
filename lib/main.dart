@@ -6,7 +6,9 @@ void main() {
   runApp(MaterialApp(
     title: 'Gym Pal',
     theme: ThemeData(
-      primarySwatch: Colors.blue,
+      primarySwatch: Colors.purple,
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
     home: const HomePage(),
   ));

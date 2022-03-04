@@ -38,7 +38,7 @@ class _WeightChartInState extends State<WeightChart> {
             const Text("Log your weight now!"),
             SizedBox(
               width: 200,
-              child: Image.asset('../../../assets/tiger.png'),
+              child: Image.asset('assets/tiger.png'),
             ),
             const Divider(
               color: Colors.deepPurpleAccent,
