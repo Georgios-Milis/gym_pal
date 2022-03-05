@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:gym_pal/views/home/home_health_pal.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
-
-import 'package:gym_pal/widgets/header.dart';
-import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/bottom.dart';
 
 class HomeGymPal extends StatefulWidget {
   const HomeGymPal({Key? key}) : super(key: key);
@@ -20,11 +15,6 @@ class _HomeGymPalState extends State<HomeGymPal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
-      drawer: Drawer(
-        child: sidenav(context),
-      ),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -70,32 +60,32 @@ class _HomeGymPalState extends State<HomeGymPal> {
                 },
               ),
             ),
-            const Divider(
-              color: Colors.deepPurpleAccent,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('assets/images/cardio-purple.png'),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeHealthPal()),
-                    );
-                  },
-                  icon: Image.asset('assets/images/test-results-grey.png'),
-                ),
-              ],
-            ),
+            // const Divider(
+            //   color: Colors.deepPurpleAccent,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     IconButton(
+            //       onPressed: () {},
+            //       icon: Image.asset('assets/images/cardio-purple.png'),
+            //     ),
+            //     IconButton(
+            //       onPressed: () {
+            //         Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => const HomeHealthPal()),
+            //         );
+            //       },
+            //       icon: Image.asset('assets/images/test-results-grey.png'),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
-      bottomNavigationBar: bottom(),
+      // bottomNavigationBar: bottom(),
     );
   }
 }

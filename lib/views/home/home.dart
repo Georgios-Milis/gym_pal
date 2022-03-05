@@ -5,11 +5,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:gym_pal/views/home/home_gym_pal.dart';
 import 'package:gym_pal/views/home/home_health_pal.dart';
 
+import 'package:gym_pal/widgets/header.dart';
+import 'package:gym_pal/widgets/sidenav.dart';
+
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -18,11 +19,13 @@ class _HomeState extends State<Home> {
   bool isAuth = false;
   late PageController pageController;
   int pageIndex = 0;
+  String username = "";
 
   @override
   void initState() {
     super.initState();
     pageController = PageController();
+
     // Detects when user signed in
     googleSignIn.onCurrentUserChanged.listen((account) {
       handleSignIn(account);
@@ -41,6 +44,7 @@ class _HomeState extends State<Home> {
     if (account != null) {
       print('User signed in: $account');
       setState(() {
+        username = (account.displayName ?? '');
         isAuth = true;
       });
     } else {
@@ -85,6 +89,11 @@ class _HomeState extends State<Home> {
     //   child: const Text('Logout'),
     // );
     return Scaffold(
+      appBar:
+          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
+      drawer: Drawer(
+        child: sidenav(context),
+      ),
       body: PageView(
         children: const <Widget>[
           HomeGymPal(),
@@ -97,15 +106,15 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: pageIndex,
         onTap: onTap,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.deepPurpleAccent[700],
         activeColor: Colors.white,
         inactiveColor: Colors.white.withAlpha(75),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.favorite),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.contact_phone_outlined),
           ),
         ],
       ),

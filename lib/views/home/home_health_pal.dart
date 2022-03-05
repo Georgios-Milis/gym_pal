@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:gym_pal/views/chart/weight_chart.dart';
 
-import 'package:gym_pal/widgets/header.dart';
-import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/bottom.dart';
-
 class HomeHealthPal extends StatefulWidget {
   const HomeHealthPal({Key? key}) : super(key: key);
   @override
@@ -18,11 +14,6 @@ class _Home2 extends State<HomeHealthPal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          header(context, isAppTitle: false, titleText: 'Welcome, $username!'),
-      drawer: Drawer(
-        child: sidenav(context),
-      ),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -68,28 +59,28 @@ class _Home2 extends State<HomeHealthPal> {
                 },
               ),
             ),
-            const Divider(
-              color: Colors.deepPurpleAccent,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Image.asset('assets/images/cardio-grey.png'),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('assets/images/test-results-purple.png'),
-                ),
-              ],
-            ),
+            // const Divider(
+            //   color: Colors.deepPurpleAccent,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     IconButton(
+            //       onPressed: () {
+            //         Navigator.pop(context);
+            //       },
+            //       icon: Image.asset('assets/images/cardio-grey.png'),
+            //     ),
+            //     IconButton(
+            //       onPressed: () {},
+            //       icon: Image.asset('assets/images/test-results-purple.png'),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
-      bottomNavigationBar: bottom(),
+      // bottomNavigationBar: bottom(),
     );
   }
 }

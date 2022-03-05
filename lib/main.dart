@@ -10,6 +10,6 @@ void main() {
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
-    home: const Home(),
+    home: Home(),
   ));
 }
