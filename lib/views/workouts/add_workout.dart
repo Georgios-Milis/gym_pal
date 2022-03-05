@@ -33,34 +33,63 @@ class _EditCounterWidgetState extends State<CounterWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(widget.title),
-          Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            child: Text("$_count"),
-          ),
-          Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            child: IconButton(
-              onPressed: _incrementCount,
-              icon: const Icon(Icons.arrow_drop_up),
-              tooltip: "More",
+      child: Padding(
+        padding: const EdgeInsets.all(6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(
+              fit: FlexFit.loose,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(widget.title),
+                  const SizedBox(width: 30),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text("$_count"),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    child: IconButton(
+                      onPressed: _incrementCount,
+                      icon: const Icon(Icons.arrow_drop_up),
+                      tooltip: "More",
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Container(
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    child: IconButton(
+                      onPressed: _decrementCount,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      tooltip: "Less",
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-            child: IconButton(
-              onPressed: _decrementCount,
-              icon: const Icon(Icons.arrow_drop_down),
-              tooltip: "Less",
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
+
+class Entry {
+  String title;
+  int? sets;
+  int? reps;
+  bool coach;
+
+  Entry({required this.title, this.sets, this.reps, required this.coach});
 }
 
 class ViewEditWorkoutWidget extends StatefulWidget {
@@ -72,7 +101,15 @@ class ViewEditWorkoutWidget extends StatefulWidget {
 
 class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   final _formKey = GlobalKey<FormState>();
+  final _titleController = TextEditingController();
+
   bool _audio = true;
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,10 +132,17 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
               color: Colors.white,
             ),
             actions: <Widget>[
+              // Save
               IconButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pop(context);
+                    final workout = Entry(
+                      title: _titleController.text,
+                      sets: 0,
+                      reps: 0,
+                      coach: _audio,
+                    );
+                    Navigator.pop(context, workout);
                   }
                 },
                 icon: const Icon(Icons.check),
@@ -126,6 +170,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                           borderSide: BorderSide(),
                         ),
                       ),
+                      controller: _titleController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Title cannot be empty!";
@@ -142,8 +187,14 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                     children: <Widget>[
                       const CounterWidget(title: "Sets: "),
                       const CounterWidget(title: "Reps: "),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Text(
                           "Hey pal! Want audio feedback while training?"),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       SizedBox(
                         width: 200,
                         child:
