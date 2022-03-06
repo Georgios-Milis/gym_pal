@@ -19,7 +19,7 @@ class _SettingsState extends State<Settings> {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      bottomNavigationBar: bottom(),
+      bottomNavigationBar: bottom(context),
     );
   }
 }

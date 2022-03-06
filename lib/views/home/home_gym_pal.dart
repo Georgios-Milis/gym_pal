@@ -55,7 +55,7 @@ class _HomeGymPalState extends State<HomeGymPal> {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Workouts(),
+                    builder: (context) => const WorkoutsPage(),
                   ));
                 },
               ),
@@ -85,7 +85,7 @@ class _HomeGymPalState extends State<HomeGymPal> {
           ],
         ),
       ),
-      // bottomNavigationBar: bottom(),
+      // bottomNavigationBar: bottom(context),
     );
   }
 }

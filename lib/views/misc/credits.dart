@@ -14,7 +14,7 @@ class Credits extends StatelessWidget {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      bottomNavigationBar: bottom(),
+      bottomNavigationBar: bottom(context),
     );
   }
 }

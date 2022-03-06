@@ -80,7 +80,7 @@ class _Home2 extends State<HomeHealthPal> {
           ],
         ),
       ),
-      // bottomNavigationBar: bottom(),
+      // bottomNavigationBar: bottom(context),
     );
   }
 }

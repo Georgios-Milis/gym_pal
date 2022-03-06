@@ -26,7 +26,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
   final _workouts = <Workout>[];
 
   void _addEntry() async {
-    final Entry _newEntry = await Navigator.of(context).push(
+    final Entry? _newEntry = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const ViewEditWorkoutWidget(),
       ),
@@ -53,7 +53,10 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
           title: Text(_workouts[index].title),
           subtitle: Text(
               "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
-          tileColor: Colors.tealAccent[200],
+          tileColor: Colors.tealAccent[400],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           trailing: Wrap(
             spacing: 10,
             children: <Widget>[
@@ -66,10 +69,14 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                 ),
               ),
               FloatingActionButton(
-                child: const Text("GO!"),
+                heroTag: index.toString(),
+                child: const Text(
+                  "GO!",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 onPressed: () {},
                 tooltip: "Start Workout",
-                backgroundColor: Colors.tealAccent[100],
+                backgroundColor: Colors.tealAccent[200],
               ),
             ],
           ),
@@ -86,8 +93,9 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         child: sidenav(context),
       ),
       body: _buildWorkoutList(),
-      bottomNavigationBar: bottom(),
+      bottomNavigationBar: bottom(context),
       floatingActionButton: FloatingActionButton(
+        heroTag: "Add",
         child: const Icon(Icons.add),
         onPressed: _addEntry,
         tooltip: "Add new workout",

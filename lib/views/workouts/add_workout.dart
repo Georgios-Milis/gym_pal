@@ -6,8 +6,10 @@ import 'package:gym_pal/widgets/bottom.dart';
 
 class CounterWidget extends StatefulWidget {
   final String title;
+  int count;
 
-  const CounterWidget({Key? key, this.title = "Count"}) : super(key: key);
+  CounterWidget({Key? key, this.title = "Count", this.count = 0})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _EditCounterWidgetState();
@@ -19,6 +21,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
   void _incrementCount() {
     setState(() {
       _count++;
+      widget.count = _count;
     });
   }
 
@@ -26,6 +29,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
     setState(() {
       if (_count > 0) {
         _count--;
+        widget.count = _count;
       }
     });
   }
@@ -50,7 +54,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
                         BoxDecoration(border: Border.all(color: Colors.grey)),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Text("$_count"),
+                      child: Text("${widget.count}"),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -84,10 +88,10 @@ class _EditCounterWidgetState extends State<CounterWidget> {
 }
 
 class Entry {
-  String title;
+  String title = "Title";
   int? sets;
   int? reps;
-  bool coach;
+  bool coach = true;
 
   Entry({required this.title, this.sets, this.reps, required this.coach});
 }
@@ -100,10 +104,15 @@ class ViewEditWorkoutWidget extends StatefulWidget {
 }
 
 class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   final _titleController = TextEditingController();
+  final _scrollController = ScrollController();
 
   bool _audio = true;
+
+  final CounterWidget _setsCounter = CounterWidget(title: "Sets: ");
+  final CounterWidget _repsCounter = CounterWidget(title: "Reps: ");
 
   @override
   void dispose() {
@@ -118,7 +127,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      bottomNavigationBar: bottom(),
+      //bottomNavigationBar: bottom(),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -135,11 +144,12 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
               // Save
               IconButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
+                  if (_formKey1.currentState!.validate() ||
+                      _formKey2.currentState!.validate()) {
                     final workout = Entry(
                       title: _titleController.text,
-                      sets: 0,
-                      reps: 0,
+                      sets: _setsCounter.count,
+                      reps: _repsCounter.count,
                       coach: _audio,
                     );
                     Navigator.pop(context, workout);
@@ -156,70 +166,159 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
               ],
             ),
           ),
-          body: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                      decoration: const InputDecoration(
-                        hintText: "Title",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(),
+          body: TabBarView(
+            children: [
+              /*
+              * TAB 1
+              *
+              */
+              SingleChildScrollView(
+                controller: _scrollController,
+                child: Form(
+                  key: _formKey1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: "Title",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(),
+                              ),
+                            ),
+                            controller: _titleController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Title cannot be empty!";
+                              }
+                              return null;
+                            }),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Customize your workout! Is it repetitive?",
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      controller: _titleController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Title cannot be empty!";
-                        }
-                        return null;
-                      }),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("Customize your workout! Is it repetitive?"),
-                ),
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      const CounterWidget(title: "Sets: "),
-                      const CounterWidget(title: "Reps: "),
-                      const SizedBox(
-                        height: 20,
+                      Center(
+                        child: Column(
+                          children: <Widget>[
+                            _setsCounter,
+                            _repsCounter,
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              "Hey pal! Want audio feedback while training?",
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              //width: 600,
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image.asset(
+                                      'assets/images/panda-victorious.png'),
+                                  const Text("No, thanks"),
+                                  Switch(
+                                    value: _audio,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _audio = value;
+                                      });
+                                    },
+                                  ),
+                                  const Text("Yes!"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const Text(
-                          "Hey pal! Want audio feedback while training?"),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 200,
-                        child:
-                            Image.asset('assets/images/panda-victorious.png'),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("No, thanks"),
-                          Switch(
-                            value: _audio,
-                            onChanged: (value) {
-                              setState(() {
-                                _audio = value;
-                              });
-                            },
-                          ),
-                          const Text("Yes!"),
-                        ],
-                      )
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              /*
+              * TAB 2
+              *
+              */
+              SingleChildScrollView(
+                controller: _scrollController,
+                child: Form(
+                  key: _formKey2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: "Title",
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(),
+                              ),
+                            ),
+                            controller: _titleController,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Title cannot be empty!";
+                              }
+                              return null;
+                            }),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Customize your workout! How much time will you exercise?",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          children: <Widget>[
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Text(
+                              "Hey pal! Want audio feedback while training?",
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              //width: 600,
+                              child: Row(
+                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Image.asset(
+                                      'assets/images/panda-victorious.png'),
+                                  const Text("No, thanks"),
+                                  Switch(
+                                    value: _audio,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _audio = value;
+                                      });
+                                    },
+                                  ),
+                                  const Text("Yes!"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -54,7 +54,7 @@ class _WeightChartInState extends State<WeightChart> {
           ],
         ),
       ),
-      bottomNavigationBar: bottom(),
+      bottomNavigationBar: bottom(context),
     );
   }
 
