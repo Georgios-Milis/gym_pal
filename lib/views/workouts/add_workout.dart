@@ -88,12 +88,20 @@ class _EditCounterWidgetState extends State<CounterWidget> {
 }
 
 class Entry {
-  String title = "Title";
-  int? sets;
-  int? reps;
-  bool coach = true;
+  final bool timed;
+  final String title;
+  final int? sets;
+  final int? reps;
+  final int? mins;
+  final bool coach;
 
-  Entry({required this.title, this.sets, this.reps, required this.coach});
+  Entry(
+      {required this.timed,
+      required this.title,
+      this.sets,
+      this.reps,
+      this.mins,
+      required this.coach});
 }
 
 class ViewEditWorkoutWidget extends StatefulWidget {
@@ -114,9 +122,12 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   final CounterWidget _setsCounter = CounterWidget(title: "Sets: ");
   final CounterWidget _repsCounter = CounterWidget(title: "Reps: ");
 
+  final CounterWidget _timeCounter = CounterWidget(title: "Minutes: ");
+
   @override
   void dispose() {
     _titleController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -130,196 +141,221 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
       //bottomNavigationBar: bottom(),
       body: DefaultTabController(
         length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.deepPurpleAccent[700],
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.close),
-              color: Colors.white,
-            ),
-            actions: <Widget>[
-              // Save
-              IconButton(
-                onPressed: () {
-                  if (_formKey1.currentState!.validate() ||
-                      _formKey2.currentState!.validate()) {
-                    final workout = Entry(
-                      title: _titleController.text,
-                      sets: _setsCounter.count,
-                      reps: _repsCounter.count,
-                      coach: _audio,
-                    );
-                    Navigator.pop(context, workout);
-                  }
-                },
-                icon: const Icon(Icons.check),
-                color: Colors.white,
+        child: Builder(
+          builder: (BuildContext context) {
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.deepPurpleAccent[700],
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close),
+                  color: Colors.white,
+                ),
+                actions: <Widget>[
+                  // Save
+                  IconButton(
+                    onPressed: () {
+                      var k1 = _formKey1.currentState;
+                      var k2 = _formKey2.currentState;
+                      int? index = DefaultTabController.of(context)!.index;
+                      if (index == 0) {
+                        if (k1 != null) {
+                          if (k1.validate()) {
+                            final workout = Entry(
+                              timed: false,
+                              title: _titleController.text,
+                              sets: _setsCounter.count,
+                              reps: _repsCounter.count,
+                              coach: _audio,
+                            );
+                            Navigator.pop(context, workout);
+                          }
+                        }
+                      }
+                      if (index == 1) {
+                        if (k2 != null) {
+                          if (k2.validate()) {
+                            final workout = Entry(
+                              timed: true,
+                              title: _titleController.text,
+                              mins: _timeCounter.count,
+                              coach: _audio,
+                            );
+                            Navigator.pop(context, workout);
+                          }
+                        }
+                      }
+                    },
+                    icon: const Icon(Icons.check),
+                    color: Colors.white,
+                  ),
+                ],
+                bottom: const TabBar(
+                  tabs: [
+                    Tab(text: "REPETITIVE"),
+                    Tab(text: "TIMED"),
+                  ],
+                ),
               ),
-            ],
-            bottom: const TabBar(
-              tabs: [
-                Tab(text: "REPETITIVE"),
-                Tab(text: "TIMED"),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              /*
+              body: TabBarView(
+                children: [
+                  /*
               * TAB 1
               *
               */
-              SingleChildScrollView(
-                controller: _scrollController,
-                child: Form(
-                  key: _formKey1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: "Title",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(),
-                              ),
-                            ),
-                            controller: _titleController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Title cannot be empty!";
-                              }
-                              return null;
-                            }),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Customize your workout! Is it repetitive?",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Center(
-                        child: Column(
-                          children: <Widget>[
-                            _setsCounter,
-                            _repsCounter,
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text(
-                              "Hey pal! Want audio feedback while training?",
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              //width: 600,
-                              child: Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image.asset(
-                                      'assets/images/panda-victorious.png'),
-                                  const Text("No, thanks"),
-                                  Switch(
-                                    value: _audio,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _audio = value;
-                                      });
-                                    },
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Form(
+                      key: _formKey1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: "Title",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(),
                                   ),
-                                  const Text("Yes!"),
-                                ],
-                              ),
+                                ),
+                                controller: _titleController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Title cannot be empty!";
+                                  }
+                                  return null;
+                                }),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "Customize your workout! Is it repetitive?",
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ],
-                        ),
+                          ),
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                                _setsCounter,
+                                _repsCounter,
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Text(
+                                  "Hey pal! Want audio feedback while training?",
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  //width: 600,
+                                  child: Row(
+                                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Image.asset(
+                                          'assets/images/panda-victorious.png'),
+                                      const Text("No, thanks"),
+                                      Switch(
+                                        value: _audio,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _audio = value;
+                                          });
+                                        },
+                                      ),
+                                      const Text("Yes!"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              /*
+                  /*
               * TAB 2
               *
               */
-              SingleChildScrollView(
-                controller: _scrollController,
-                child: Form(
-                  key: _formKey2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                            decoration: const InputDecoration(
-                              hintText: "Title",
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(),
-                              ),
-                            ),
-                            controller: _titleController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Title cannot be empty!";
-                              }
-                              return null;
-                            }),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Customize your workout! How much time will you exercise?",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Center(
-                        child: Column(
-                          children: <Widget>[
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text(
-                              "Hey pal! Want audio feedback while training?",
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              //width: 600,
-                              child: Row(
-                                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image.asset(
-                                      'assets/images/panda-victorious.png'),
-                                  const Text("No, thanks"),
-                                  Switch(
-                                    value: _audio,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _audio = value;
-                                      });
-                                    },
+                  SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Form(
+                      key: _formKey2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                                decoration: const InputDecoration(
+                                  hintText: "Title",
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(),
                                   ),
-                                  const Text("Yes!"),
-                                ],
-                              ),
+                                ),
+                                controller: _titleController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Title cannot be empty!";
+                                  }
+                                  return null;
+                                }),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "Customize your workout! How much time will you exercise?",
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                          ],
-                        ),
+                          ),
+                          Center(
+                            child: Column(
+                              children: <Widget>[
+                                _timeCounter,
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                const Text(
+                                  "Hey pal! Want audio feedback while training?",
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  //width: 600,
+                                  child: Row(
+                                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Image.asset(
+                                          'assets/images/panda-victorious.png'),
+                                      const Text("No, thanks"),
+                                      Switch(
+                                        value: _audio,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            _audio = value;
+                                          });
+                                        },
+                                      ),
+                                      const Text("Yes!"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

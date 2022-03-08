@@ -14,12 +14,20 @@ class WorkoutsPage extends StatefulWidget {
 }
 
 class Workout {
-  String title;
-  int? sets;
-  int? reps;
-  bool coach;
+  final bool timed;
+  final String title;
+  final int? sets;
+  final int? reps;
+  final int? mins;
+  final bool coach;
 
-  Workout({required this.title, this.sets, this.reps, required this.coach});
+  Workout(
+      {required this.timed,
+      required this.title,
+      this.sets,
+      this.reps,
+      this.mins,
+      required this.coach});
 }
 
 class _WorkoutsPageState extends State<WorkoutsPage> {
@@ -34,9 +42,11 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
     if (_newEntry != null) {
       _workouts.add(Workout(
+        timed: _newEntry.timed,
         title: _newEntry.title,
         sets: _newEntry.sets,
         reps: _newEntry.reps,
+        mins: _newEntry.mins,
         coach: _newEntry.coach,
       ));
       setState(() {});
@@ -51,8 +61,9 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(_workouts[index].title),
-          subtitle: Text(
-              "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
+          subtitle: Text(_workouts[index].timed
+              ? "${_workouts[index].mins.toString()} mins"
+              : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
           tileColor: Colors.tealAccent[400],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
