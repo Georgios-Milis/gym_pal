@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:gym_pal/views/home/home.dart';
+import 'package:gym_pal/views/chart/weight_chart.dart';
+import 'package:camera/camera.dart';
 
-void main() {
+late List<CameraDescription> cameras;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+
   runApp(MaterialApp(
     title: 'Gym Pal',
     theme: ThemeData(
@@ -10,6 +15,6 @@ void main() {
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
-    home: Home(),
+    home: WeightChart(),
   ));
 }

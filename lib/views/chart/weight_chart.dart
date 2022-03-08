@@ -3,6 +3,16 @@ import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/chart.dart';
+import 'package:camera/camera.dart';
+import 'package:gym_pal/main.dart';
+
+
+Future<void> cam() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  cameras = await availableCameras();
+
+}
 
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
@@ -11,6 +21,18 @@ class WeightChart extends StatefulWidget {
 }
 
 class _WeightChartInState extends State<WeightChart> {
+  late CameraController controller;
+  @override
+  void initState(){
+    super.initState();
+    controller = CameraController(cameras[0],ResolutionPreset.max);
+    controller.initialize();
+  }
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +62,9 @@ class _WeightChartInState extends State<WeightChart> {
               children: <Widget>[
                 IconButton(
                     onPressed: () {
-                      SimpleBarChart.withoutData(false);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CameraPreview(controller))
+                      );
                     },
                     icon: const Icon(Icons.camera_alt)),
                 IconButton(
