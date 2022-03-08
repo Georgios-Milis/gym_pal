@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// This other dependency doesn't have picker for seconds...
+//import 'package:duration_picker/duration_picker.dart';
+
+import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
+
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
@@ -50,8 +55,11 @@ class _EditCounterWidgetState extends State<CounterWidget> {
                   Text(widget.title),
                   const SizedBox(width: 30),
                   Container(
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.grey)),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(5.0)),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text("${widget.count}"),
@@ -92,7 +100,7 @@ class Entry {
   final String title;
   final int? sets;
   final int? reps;
-  final int? mins;
+  final Duration? duration;
   final bool coach;
 
   Entry(
@@ -100,7 +108,7 @@ class Entry {
       required this.title,
       this.sets,
       this.reps,
-      this.mins,
+      this.duration,
       required this.coach});
 }
 
@@ -122,7 +130,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   final CounterWidget _setsCounter = CounterWidget(title: "Sets: ");
   final CounterWidget _repsCounter = CounterWidget(title: "Reps: ");
 
-  final CounterWidget _timeCounter = CounterWidget(title: "Minutes: ");
+  Duration _duration = new Duration(seconds: 0);
 
   @override
   void dispose() {
@@ -180,7 +188,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                             final workout = Entry(
                               timed: true,
                               title: _titleController.text,
-                              mins: _timeCounter.count,
+                              duration: _duration,
                               coach: _audio,
                             );
                             Navigator.pop(context, workout);
@@ -202,9 +210,9 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
               body: TabBarView(
                 children: [
                   /*
-              * TAB 1
-              *
-              */
+                  * TAB 1
+                  *
+                  */
                   SingleChildScrollView(
                     controller: _scrollController,
                     child: Form(
@@ -278,9 +286,9 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                     ),
                   ),
                   /*
-              * TAB 2
-              *
-              */
+                  * TAB 2
+                  *
+                  */
                   SingleChildScrollView(
                     controller: _scrollController,
                     child: Form(
@@ -315,7 +323,19 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                           Center(
                             child: Column(
                               children: <Widget>[
-                                _timeCounter,
+                                SizedBox(
+                                  width: 300,
+                                  child: DurationPicker(
+                                    duration: _duration,
+                                    onChange: (value) {
+                                      setState(() {
+                                        _duration = value;
+                                      });
+                                    },
+                                    durationPickerMode:
+                                        DurationPickerMode.Minute,
+                                  ),
+                                ),
                                 const SizedBox(
                                   height: 20,
                                 ),

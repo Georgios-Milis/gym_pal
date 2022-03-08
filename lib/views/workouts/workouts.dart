@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//import 'package:duration_picker/duration_picker.dart';
+import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
 
@@ -18,7 +20,7 @@ class Workout {
   final String title;
   final int? sets;
   final int? reps;
-  final int? mins;
+  final Duration? duration;
   final bool coach;
 
   Workout(
@@ -26,7 +28,7 @@ class Workout {
       required this.title,
       this.sets,
       this.reps,
-      this.mins,
+      this.duration,
       required this.coach});
 }
 
@@ -46,11 +48,25 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         title: _newEntry.title,
         sets: _newEntry.sets,
         reps: _newEntry.reps,
-        mins: _newEntry.mins,
+        duration: _newEntry.duration,
         coach: _newEntry.coach,
       ));
       setState(() {});
     }
+  }
+
+  String formatDuration(Duration? d) {
+    String res = "";
+    if (d != null) {
+      int hrs = d.inHours;
+      int mins = d.inMinutes - d.inHours * 60;
+      int sec = d.inSeconds - d.inMinutes * 60;
+
+      res = res + (d.inHours == 0 ? "" : hrs.toString() + " hrs ");
+      res = res + (d.inMinutes == 0 ? "" : " " + mins.toString() + " mins ");
+      res = res + (d.inSeconds == 0 ? "" : " " + sec.toString()) + " sec ";
+    }
+    return res;
   }
 
   Widget _buildWorkoutList() {
@@ -62,7 +78,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         return ListTile(
           title: Text(_workouts[index].title),
           subtitle: Text(_workouts[index].timed
-              ? "${_workouts[index].mins.toString()} mins"
+              ? formatDuration(_workouts[index].duration)
               : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
           tileColor: Colors.tealAccent[400],
           shape: RoundedRectangleBorder(
