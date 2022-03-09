@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
+import 'package:gym_pal/views/workouts/timed_session.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -101,7 +102,21 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                   "GO!",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  if (_workouts[index].timed) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TimedSession(),
+                      ),
+                    );
+                  } else {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TimedSession(),
+                      ),
+                    );
+                  }
+                },
                 tooltip: "Start Workout",
                 backgroundColor: Colors.tealAccent[200],
               ),
