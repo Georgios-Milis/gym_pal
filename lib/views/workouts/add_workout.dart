@@ -10,23 +10,27 @@ import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 
 class CounterWidget extends StatefulWidget {
-  final String title;
-  int count;
+  String _title = "Count";
+  int _count = 0;
 
-  CounterWidget({Key? key, this.title = "Count", this.count = 0})
-      : super(key: key);
-
+  CounterWidget({Key? key, String title = "Title", int start = 0})
+      : super(key: key) {
+    _title = title;
+    _count = start;
+  }
   @override
   State<StatefulWidget> createState() => _EditCounterWidgetState();
 }
 
 class _EditCounterWidgetState extends State<CounterWidget> {
+  //int _count = widget._count;
+
   int _count = 0;
 
   void _incrementCount() {
     setState(() {
       _count++;
-      widget.count = _count;
+      widget._count = _count;
     });
   }
 
@@ -34,7 +38,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
     setState(() {
       if (_count > 0) {
         _count--;
-        widget.count = _count;
+        widget._count = _count;
       }
     });
   }
@@ -52,7 +56,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(widget.title),
+                  Text(widget._title),
                   const SizedBox(width: 30),
                   Container(
                     decoration: BoxDecoration(
@@ -62,7 +66,7 @@ class _EditCounterWidgetState extends State<CounterWidget> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Text("${widget.count}"),
+                      child: Text("${widget._count}"),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -113,7 +117,10 @@ class Entry {
 }
 
 class ViewEditWorkoutWidget extends StatefulWidget {
-  const ViewEditWorkoutWidget({Key? key}) : super(key: key);
+  Entry? lastEntry;
+  ViewEditWorkoutWidget(Entry? e, {Key? key}) : super(key: key) {
+    lastEntry = e;
+  }
 
   @override
   State<StatefulWidget> createState() => _ViewEditWorkoutWidgetState();
@@ -125,12 +132,14 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   final _titleController = TextEditingController();
   final _scrollController = ScrollController();
 
-  bool _audio = true;
+  Entry? lastEntry;
 
-  final CounterWidget _setsCounter = CounterWidget(title: "Sets: ");
-  final CounterWidget _repsCounter = CounterWidget(title: "Reps: ");
+  bool _audio = true; //(lastEntry == null) ? true : lastEntry.coach;
 
-  Duration _duration = new Duration(seconds: 0);
+  final CounterWidget _setsCounter = CounterWidget(title: "Sets: ", start: 0);
+  final CounterWidget _repsCounter = CounterWidget(title: "Reps: ", start: 0);
+
+  Duration _duration = const Duration(seconds: 0);
 
   @override
   void dispose() {
@@ -141,6 +150,8 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
 
   @override
   Widget build(BuildContext context) {
+    lastEntry = widget.lastEntry;
+
     return Scaffold(
       appBar: header(context, isAppTitle: false, titleText: 'Add Workout'),
       drawer: Drawer(
@@ -174,8 +185,8 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                             final workout = Entry(
                               timed: false,
                               title: _titleController.text,
-                              sets: _setsCounter.count,
-                              reps: _repsCounter.count,
+                              sets: _setsCounter._count,
+                              reps: _repsCounter._count,
                               coach: _audio,
                             );
                             Navigator.pop(context, workout);
