@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 //import 'package:duration_picker/duration_picker.dart';
+
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
+import 'package:gym_pal/views/workouts/timed_session.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -35,10 +38,20 @@ class Workout {
 class _WorkoutsPageState extends State<WorkoutsPage> {
   final _workouts = <Workout>[];
 
-  void _addEntry() async {
+  void _addEntry(Workout? w) async {
+    Entry? toEdit;
+    if (w != null) {
+      toEdit = Entry(
+          title: w.title,
+          coach: w.coach,
+          timed: w.timed,
+          sets: w.sets,
+          reps: w.reps,
+          duration: w.duration);
+    }
     final Entry? _newEntry = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const ViewEditWorkoutWidget(),
+        builder: (context) => ViewEditWorkoutWidget(toEdit),
       ),
     );
 
@@ -75,37 +88,74 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
       itemCount: _workouts.length,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(_workouts[index].title),
-          subtitle: Text(_workouts[index].timed
-              ? formatDuration(_workouts[index].duration)
-              : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
-          tileColor: Colors.tealAccent[400],
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          trailing: Wrap(
-            spacing: 10,
-            children: <Widget>[
-              Visibility(
-                visible: _workouts[index].coach,
-                child: IconButton(
-                  icon: Image.asset('assets/images/Panda.png'),
-                  onPressed: () {},
-                  tooltip: "Audio Feedback",
-                ),
+        return Slidable(
+          key: ValueKey(index),
+          endActionPane: ActionPane(
+            extentRatio: 0.2,
+            motion: const ScrollMotion(),
+            children: [
+              IconButton(
+                tooltip: "Edit",
+                icon: const Icon(Icons.edit_outlined),
+                onPressed: () => _addEntry(_workouts[index]),
               ),
-              FloatingActionButton(
-                heroTag: index.toString(),
-                child: const Text(
-                  "GO!",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {},
-                tooltip: "Start Workout",
-                backgroundColor: Colors.tealAccent[200],
+              IconButton(
+                tooltip: "Delete",
+                icon: const Icon(Icons.delete_outlined),
+                onPressed: () {
+                  setState(() {
+                    _workouts.removeAt(index);
+                  });
+                },
               ),
             ],
+          ),
+          child: ListTile(
+            title: Text(_workouts[index].title),
+            subtitle: Text(_workouts[index].timed
+                ? formatDuration(_workouts[index].duration)
+                : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
+            tileColor: Colors.tealAccent[400],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            trailing: Wrap(
+              spacing: 10,
+              children: <Widget>[
+                Visibility(
+                  visible: _workouts[index].coach,
+                  child: IconButton(
+                    icon: Image.asset('assets/images/Panda.png'),
+                    onPressed: () {},
+                    tooltip: "Audio Feedback",
+                  ),
+                ),
+                FloatingActionButton(
+                  heroTag: index.toString(),
+                  child: const Text(
+                    "GO!",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    if (_workouts[index].timed) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TimedSession(),
+                        ),
+                      );
+                    } else {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const TimedSession(),
+                        ),
+                      );
+                    }
+                  },
+                  tooltip: "Start Workout",
+                  backgroundColor: Colors.tealAccent[200],
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -124,7 +174,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: "Add",
         child: const Icon(Icons.add),
-        onPressed: _addEntry,
+        onPressed: () => _addEntry,
         tooltip: "Add new workout",
         backgroundColor: Colors.tealAccent[200],
       ),
