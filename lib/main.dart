@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:gym_pal/views/chart/weight_chart.dart';
+import 'package:gym_pal/views/workouts/timed_session.dart';
 import 'package:camera/camera.dart';
+import 'package:gym_pal/views/workouts/workouts.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
@@ -15,6 +16,6 @@ Future<void> main() async {
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
-    home: WeightChart(),
+    home: WorkoutsPage(),
   ));
 }
