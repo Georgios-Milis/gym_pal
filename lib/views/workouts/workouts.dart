@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 //import 'package:duration_picker/duration_picker.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
 import 'package:gym_pal/views/workouts/timed_session.dart';
@@ -140,13 +139,13 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                     if (_workouts[index].timed) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>  TimedSession(_workouts[index]),
+                          builder: (context) => TimedSession(_workouts[index]),
                         ),
                       );
                     } else {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) =>  TimedSession(_workouts[index]),
+                          builder: (context) => TimedSession(_workouts[index]),
                         ),
                       );
                     }
@@ -164,6 +163,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   @override
   Widget build(BuildContext context) {
+    Workout start = Workout(coach: true, title: "", timed: false);
     return Scaffold(
       appBar: header(context, isAppTitle: false, titleText: 'My Workouts'),
       drawer: Drawer(
@@ -174,7 +174,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: "Add",
         child: const Icon(Icons.add),
-        onPressed: () => _addEntry,
+        onPressed: () => _addEntry(start),
         tooltip: "Add new workout",
         backgroundColor: Colors.tealAccent[200],
       ),
