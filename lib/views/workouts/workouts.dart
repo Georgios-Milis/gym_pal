@@ -140,13 +140,13 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                     if (_workouts[index].timed) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const TimedSession(),
+                          builder: (context) =>  TimedSession(_workouts[index]),
                         ),
                       );
                     } else {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const TimedSession(),
+                          builder: (context) =>  TimedSession(_workouts[index]),
                         ),
                       );
                     }
