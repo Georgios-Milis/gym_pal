@@ -20,6 +20,7 @@ class _RepSession extends State<RepSession> {
   late String ?title;
   @override
   Widget build(BuildContext context) {
+    title = widget.wk.title;
     return Scaffold(
       appBar: header(context, isAppTitle: false, titleText: '${title} Session'),
       drawer: Drawer(
@@ -35,6 +36,7 @@ class _RepSession extends State<RepSession> {
                   width: 200,
                   child:Image.asset('assets/images/panda1-250.png'),
                 ),
+                const SizedBox(width:20),
                 Column(
                   children:<Widget>[
                   SizedBox( 
@@ -61,6 +63,7 @@ class _RepSession extends State<RepSession> {
                 child: Text('FASTER'),
                 ),
                 ),
+                const SizedBox(height:20),
                 SizedBox(
               width: 120,
                child: TextButton(
@@ -112,7 +115,7 @@ class _RepSession extends State<RepSession> {
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
                 ),
-                onPressed: () { },
+                onPressed: () { Navigator.of(context).pop; },
                 child: Text('STOP'),
                 ),
                 ),

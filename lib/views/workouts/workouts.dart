@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
+import 'package:gym_pal/views/workouts/rep_session.dart';
 import 'package:gym_pal/views/workouts/timed_session.dart';
 
 import 'package:gym_pal/widgets/header.dart';
@@ -145,7 +146,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                     } else {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => TimedSession(_workouts[index]),
+                          builder: (context) => RepSession(_workouts[index]),
                         ),
                       );
                     }
