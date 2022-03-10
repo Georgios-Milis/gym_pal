@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
-late Duration ?du;
+late Duration du;
 
 class CountdownPage extends StatefulWidget {
-  CountdownPage(Duration ?d,{Key? key}) : super(key: key){du = d;}
+  CountdownPage(Duration d,{Key? key}) : super(key: key){du = d;}
   _CountdownPageState a = _CountdownPageState();
   @override 
   _CountdownPageState createState() => a;
@@ -13,7 +13,7 @@ class CountdownPage extends StatefulWidget {
 }
 
 class _CountdownPageState extends State<CountdownPage>{
-  Duration ?duration = du;
+  Duration duration = du;
   Timer? timer;
   @override
   void initState(){

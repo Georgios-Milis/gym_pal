@@ -18,12 +18,12 @@ class TimedSession extends StatefulWidget {
 
 
 class _TimedSession extends State<TimedSession> {
-  late Duration ?d;
+  late Duration d = Duration();
   late String ?title;
   late CountdownPage tmr;
   @override
   Widget build(BuildContext context) {
-    d = widget.wk.duration;
+    if(widget.wk.duration != null) d= widget.wk.duration!;
     title = widget.wk.title;
     tmr = new CountdownPage(d);
     return Scaffold(
