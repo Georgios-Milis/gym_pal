@@ -97,7 +97,7 @@ class _TimedSession extends State<TimedSession> {
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   backgroundColor: MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
                 ),
-                onPressed: () { },
+                onPressed: () { Navigator.of(context).pop; },
                 child: Text('STOP'),
                 ),
                 ),

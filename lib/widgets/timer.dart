@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
-late Duration du;
+late Duration du = Duration();
 
 class CountdownPage extends StatefulWidget {
   CountdownPage(Duration d,{Key? key}) : super(key: key){du = d;}
