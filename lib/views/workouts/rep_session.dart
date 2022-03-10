@@ -18,9 +18,13 @@ class RepSession extends StatefulWidget {
 
 class _RepSession extends State<RepSession> {
   late String ?title;
+  late int? sets;
+  late int? reps;
   @override
   Widget build(BuildContext context) {
     title = widget.wk.title;
+    sets = widget.wk.sets;
+    reps = widget.wk.reps;
     return Scaffold(
       appBar: header(context, isAppTitle: false, titleText: '${title} Session'),
       drawer: Drawer(
@@ -58,7 +62,7 @@ class _RepSession extends State<RepSession> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Text("15",style: TextStyle(fontSize: 20)),
+                      child: Text("${sets}",style: TextStyle(fontSize: 20)),
                     ),
                   ),
             ]
@@ -92,7 +96,7 @@ class _RepSession extends State<RepSession> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Text("10",style: TextStyle(
+                      child: Text("${reps}",style: TextStyle(
                         fontSize: 20),),
                     ),
                   ),
