@@ -4,9 +4,9 @@ import "package:gym_pal/database/database.dart";
 import "package:gym_pal/models/model.dart";
 
 class DBLogic {
-  static const String STORE = "workouts";
+  static const String store = "workouts";
 
-  final _workouts = intMapStoreFactory.store(STORE);
+  final _workouts = intMapStoreFactory.store(store);
 
   Future<Database> get db async => await WorkoutDB.instance.db;
 
