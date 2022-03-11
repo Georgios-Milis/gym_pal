@@ -19,8 +19,8 @@ class _CountdownPageState extends State<CountdownPage>{
   @override
   void initState(){
     super.initState();
-    startTimer();
     reset();
+    startTimer();
   }
 
   void reset(){
@@ -29,6 +29,11 @@ class _CountdownPageState extends State<CountdownPage>{
 
   void stopTimer(){
     setState(() => timer?.cancel());
+  }
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   void addTime(){

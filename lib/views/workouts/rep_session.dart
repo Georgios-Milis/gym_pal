@@ -9,7 +9,7 @@ import 'dart:async';
 
 bool volumeClick = true;
 bool isRunning = false;
-int counter_sets = 0;
+int counter_sets = 1;
 int counter_reps = 0;
 int pace = 3;
 
@@ -35,6 +35,11 @@ class _RepSession extends State<RepSession> {
     reset();
     startTimer();
   }
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   void reset(){
     setState(() => duration = du);
@@ -53,11 +58,12 @@ class _RepSession extends State<RepSession> {
         timer?.cancel();
       }
       duration = Duration(seconds: seconds);
-      if(duration.inSeconds % pace == 0 ) addcnt();
+      if(duration.inSeconds % pace == 0) addcnt();
     });}
   }
 
   void startTimer(){
+
     timer = Timer.periodic(Duration(seconds:1),(_)=>addTime());
   }
 
@@ -65,7 +71,7 @@ class _RepSession extends State<RepSession> {
       if(counter_reps!= reps){
         counter_reps += 1;
       }
-      if(counter_reps == reps && counter_sets !=sets){
+      if(counter_reps == reps && counter_sets != sets){
         counter_reps = 0;
         counter_sets += 1;
       }
@@ -263,7 +269,10 @@ class _RepSession extends State<RepSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop;
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                        Navigator.pop(context);
                       },
                       child: Text('STOP'),
                     ),

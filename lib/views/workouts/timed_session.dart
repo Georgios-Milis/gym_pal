@@ -73,7 +73,7 @@ class _TimedSession extends State<TimedSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {
-                        tmr.a.duration = d;
+                        
                       },
                       child: const Text('RESET'),
                     ),
@@ -105,7 +105,10 @@ class _TimedSession extends State<TimedSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop;
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                        Navigator.pop(context);
                       },
                       child: const Text('STOP'),
                     ),
