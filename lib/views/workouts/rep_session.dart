@@ -7,12 +7,7 @@ import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 import 'dart:async';
 
-import 'package:vibration/vibration.dart';
-/* USE
-if (await Vibration.hasVibrator()) {
-    Vibration.vibrate();
-}
-*/
+//import 'package:vibration/vibration.dart';
 
 bool volumeClick = true;
 bool isRunning = false;
@@ -42,6 +37,7 @@ class _RepSession extends State<RepSession> {
     reset();
     startTimer();
   }
+
   @override
   void dispose() {
     timer?.cancel();
@@ -58,30 +54,53 @@ class _RepSession extends State<RepSession> {
 
   void addTime() {
     final addSeconds = 1;
-    if(isRunning == true){
-    setState(() {
-      final seconds = duration.inSeconds + addSeconds;
-      if (seconds<0){
-        timer?.cancel();
-      }
-      duration = Duration(seconds: seconds);
-      if(duration.inSeconds % pace == 0) addcnt();
-    });}
+    if (isRunning == true) {
+      setState(() {
+        final seconds = duration.inSeconds + addSeconds;
+        if (seconds < 0) {
+          timer?.cancel();
+        }
+        duration = Duration(seconds: seconds);
+        if (duration.inSeconds % pace == 0) addcnt();
+      });
+    }
   }
 
-  void startTimer(){
-
-    timer = Timer.periodic(Duration(seconds:1),(_)=>addTime());
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
   }
 
-  void addcnt(){
-      if(counter_reps!= reps){
-        counter_reps += 1;
+  void addcnt() {
+    if (counter_reps != reps) {
+      counter_reps += 1;
+    }
+    if (counter_reps == reps && counter_sets != sets) {
+      counter_reps = 0;
+      counter_sets += 1;
+    }
+  }
+
+  void finish() {
+    setState(() async {
+      if (counter_reps == reps && counter_sets == sets) {
+        //if (await Vibration.hasVibrator()) {
+        //  Vibration.vibrate();
+        //}
+        showDialog<Icon>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('You did this!'),
+            content: Image.asset('assets/images/panda-victorious.png'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Thanks!'),
+              ),
+            ],
+          ),
+        );
       }
-      if(counter_reps == reps && counter_sets != sets){
-        counter_reps = 0;
-        counter_sets += 1;
-      }
+    });
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
-import 'package:vibration/vibration.dart';
+//import 'package:vibration/vibration.dart';
 
 bool volumeClick = true;
 
@@ -74,9 +74,7 @@ class _TimedSession extends State<TimedSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () {
-                        
-                      },
+                      onPressed: () {},
                       child: const Text('RESET'),
                     ),
                   ),
