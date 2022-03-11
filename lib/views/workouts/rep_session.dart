@@ -7,7 +7,7 @@ import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 import 'dart:async';
 
-import 'package:vibration/vibration.dart';
+//import 'package:vibration/vibration.dart';
 /* USE
 if (await Vibration.hasVibrator()) {
     Vibration.vibrate();
