@@ -38,16 +38,24 @@ class Workout {
 class _WorkoutsPageState extends State<WorkoutsPage> {
   final _workouts = <Workout>[];
 
-  void _addEntry(Workout? w) async {
-    Entry? toEdit;
+  void _addEntry(Workout? w, int i, {bool edit = false}) async {
+    Entry toEdit = Entry(
+      coach: true,
+      timed: false,
+      title: "",
+      sets: 0,
+      reps: 0,
+      duration: const Duration(),
+    );
     if (w != null) {
       toEdit = Entry(
-          title: w.title,
-          coach: w.coach,
-          timed: w.timed,
-          sets: w.sets,
-          reps: w.reps,
-          duration: w.duration);
+        title: w.title,
+        coach: w.coach,
+        timed: w.timed,
+        sets: (w.sets == null) ? 0 : w.sets!,
+        reps: (w.reps == null) ? 0 : w.reps!,
+        duration: (w.duration == null) ? const Duration() : w.duration!,
+      );
     }
     final Entry? _newEntry = await Navigator.of(context).push(
       MaterialPageRoute(
@@ -56,14 +64,19 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
     );
 
     if (_newEntry != null) {
-      _workouts.add(Workout(
+      Workout newWorkout = Workout(
         timed: _newEntry.timed,
         title: _newEntry.title,
         sets: _newEntry.sets,
         reps: _newEntry.reps,
         duration: _newEntry.duration,
         coach: _newEntry.coach,
-      ));
+      );
+      if (edit == false) {
+        _workouts.add(newWorkout);
+      } else {
+        _workouts[i] = newWorkout;
+      }
       setState(() {});
     }
   }
@@ -97,7 +110,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
               IconButton(
                 tooltip: "Edit",
                 icon: const Icon(Icons.edit_outlined),
-                onPressed: () => _addEntry(_workouts[index]),
+                onPressed: () => _addEntry(_workouts[index], index, edit: true),
               ),
               IconButton(
                 tooltip: "Delete",
@@ -175,7 +188,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: "Add",
         child: const Icon(Icons.add),
-        onPressed: () => _addEntry(start),
+        onPressed: () => _addEntry(start, 0),
         tooltip: "Add new workout",
         backgroundColor: Colors.tealAccent[200],
       ),

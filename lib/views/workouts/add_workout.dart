@@ -7,7 +7,6 @@ import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-//import 'package:gym_pal/widgets/bottom.dart';
 
 class CounterWidget extends StatefulWidget {
   String _title = "Count";
@@ -23,9 +22,7 @@ class CounterWidget extends StatefulWidget {
 }
 
 class _EditCounterWidgetState extends State<CounterWidget> {
-  //int _count = widget._count;
-
-  int _count = 0;
+  late int _count = widget._count;
 
   void _incrementCount() {
     setState(() {
@@ -102,23 +99,23 @@ class _EditCounterWidgetState extends State<CounterWidget> {
 class Entry {
   final bool timed;
   final String title;
-  final int? sets;
-  final int? reps;
-  final Duration? duration;
+  final int sets;
+  final int reps;
+  final Duration duration;
   final bool coach;
 
   Entry(
       {required this.timed,
       required this.title,
-      this.sets,
-      this.reps,
-      this.duration,
+      required this.sets,
+      required this.reps,
+      required this.duration,
       required this.coach});
 }
 
 class ViewEditWorkoutWidget extends StatefulWidget {
-  Entry? lastEntry;
-  ViewEditWorkoutWidget(Entry? e, {Key? key}) : super(key: key) {
+  late Entry lastEntry;
+  ViewEditWorkoutWidget(Entry e, {Key? key}) : super(key: key) {
     lastEntry = e;
   }
 
@@ -132,14 +129,24 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
   final _titleController = TextEditingController();
   final _scrollController = ScrollController();
 
-  Entry? lastEntry;
+  late Entry lastEntry = widget.lastEntry;
 
-  bool _audio = true; //(lastEntry == null) ? true : lastEntry.coach;
+  late bool _audio = lastEntry.coach;
+  late final int _sets = lastEntry.sets;
+  late final int _reps = lastEntry.reps;
 
-  final CounterWidget _setsCounter = CounterWidget(title: "Sets: ", start: 0);
-  final CounterWidget _repsCounter = CounterWidget(title: "Reps: ", start: 0);
+  late final CounterWidget _setsCounter =
+      CounterWidget(title: "Sets: ", start: _sets);
+  late final CounterWidget _repsCounter =
+      CounterWidget(title: "Reps: ", start: _reps);
 
-  Duration _duration = const Duration(seconds: 0);
+  late Duration _duration = lastEntry.duration;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.text = lastEntry.title;
+  }
 
   @override
   void dispose() {
@@ -157,7 +164,6 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
       drawer: Drawer(
         child: sidenav(context),
       ),
-      //bottomNavigationBar: bottom(),
       body: DefaultTabController(
         length: 2,
         child: Builder(
@@ -187,6 +193,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                               title: _titleController.text,
                               sets: _setsCounter._count,
                               reps: _repsCounter._count,
+                              duration: const Duration(),
                               coach: _audio,
                             );
                             Navigator.pop(context, workout);
@@ -199,6 +206,8 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                             final workout = Entry(
                               timed: true,
                               title: _titleController.text,
+                              sets: 0,
+                              reps: 0,
                               duration: _duration,
                               coach: _audio,
                             );
