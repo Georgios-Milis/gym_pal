@@ -94,20 +94,24 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             extentRatio: 0.2,
             motion: const ScrollMotion(),
             children: [
-              IconButton(
-                tooltip: "Edit",
-                icon: const Icon(Icons.edit_outlined),
-                onPressed: () => _addEntry(_workouts[index]),
-              ),
-              IconButton(
-                tooltip: "Delete",
-                icon: const Icon(Icons.delete_outlined),
-                onPressed: () {
-                  setState(() {
-                    _workouts.removeAt(index);
-                  });
-                },
-              ),
+              Expanded(
+                  flex: 5,
+                  child: IconButton(
+                    tooltip: "Edit",
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => _addEntry(_workouts[index]),
+                  )),
+              Expanded(
+                  flex: 5,
+                  child: IconButton(
+                    tooltip: "Delete",
+                    icon: const Icon(Icons.delete_outlined),
+                    onPressed: () {
+                      setState(() {
+                        _workouts.removeAt(index);
+                      });
+                    },
+                  )),
             ],
           ),
           child: ListTile(
