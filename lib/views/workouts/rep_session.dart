@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
-//import 'package:gym_pal/widgets/timer.dart';
+import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
+import 'dart:async';
 
 bool volumeClick = true;
 bool isRunning = false;
-int counter = 0;
+int counter_sets = 0;
+int counter_reps = 0;
+int pace = 3;
 
 class RepSession extends StatefulWidget {
   late Workout wk;
@@ -23,6 +26,51 @@ class _RepSession extends State<RepSession> {
   late String? title;
   late int? sets;
   late int? reps;
+  late Duration duration = Duration(seconds:0);
+  Timer? timer;
+
+  @override
+  void initState(){
+    super.initState();
+    reset();
+    startTimer();
+  }
+
+  void reset(){
+    setState(() => duration = du);
+  }
+
+  void stopTimer(){
+    setState(() => timer?.cancel());
+  }
+
+  void addTime(){
+    final addSeconds = 1;
+    if(isRunning == true){
+    setState(() {
+      final seconds = duration.inSeconds + addSeconds;
+      if (seconds<0){
+        timer?.cancel();
+      }
+      duration = Duration(seconds: seconds);
+      if(duration.inSeconds % pace == 0 ) addcnt();
+    });}
+  }
+
+  void startTimer(){
+    timer = Timer.periodic(Duration(seconds:1),(_)=>addTime());
+  }
+
+  void addcnt(){
+      if(counter_reps!= reps){
+        counter_reps += 1;
+      }
+      if(counter_reps == reps && counter_sets !=sets){
+        counter_reps = 0;
+        counter_sets += 1;
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
     title = widget.wk.title;
@@ -51,7 +99,7 @@ class _RepSession extends State<RepSession> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: Text("3", style: TextStyle(fontSize: 20)),
+                        child: Text("${counter_sets}", style: TextStyle(fontSize: 20)),
                       ),
                     ),
                     Text("Of:", style: TextStyle(fontSize: 20)),
@@ -84,7 +132,7 @@ class _RepSession extends State<RepSession> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(5),
-                        child: Text("3", style: TextStyle(fontSize: 20)),
+                        child: Text("${counter_reps}", style: TextStyle(fontSize: 20)),
                       ),
                     ),
                     Text("Of:", style: TextStyle(fontSize: 20)),
@@ -140,7 +188,7 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {},
+                              onPressed: () {if (pace !=1)pace -=1;},
                               child: Text('FASTER'),
                             ),
                           ),
@@ -155,7 +203,7 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {},
+                              onPressed: () {if(pace != 5) pace +=1;},
                               child: Text('SLOWER'),
                             ),
                           ),
@@ -175,7 +223,7 @@ class _RepSession extends State<RepSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () {},
+                      onPressed: () {counter_sets = 0; counter_reps = 0;},
                       child: Text('RESET'),
                     ),
                   ),
