@@ -58,7 +58,6 @@ class _RepSession extends State<RepSession> {
 
   void addTime() {
     final addSeconds = 1;
-<<<<<<< HEAD
     if(isRunning == true){
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
@@ -83,32 +82,6 @@ class _RepSession extends State<RepSession> {
         counter_reps = 0;
         counter_sets += 1;
       }
-=======
-    if (isRunning == true) {
-      setState(() {
-        final seconds = duration.inSeconds + addSeconds;
-        if (seconds < 0) {
-          timer?.cancel();
-        }
-        duration = Duration(seconds: seconds);
-        if (duration.inSeconds % pace == 0) addcnt();
-      });
-    }
-  }
-
-  void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
-  }
-
-  void addcnt() {
-    if (counter_reps != reps) {
-      counter_reps += 1;
-    }
-    if (counter_reps == reps && counter_sets != sets) {
-      counter_reps = 0;
-      counter_sets += 1;
-    }
->>>>>>> a6531947a3020bdd1420a2066fb3164aba127b1e
   }
 
   @override
