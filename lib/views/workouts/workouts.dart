@@ -192,6 +192,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         onPressed: () => _addEntry(start, 0),
         tooltip: "Add new workout",
         backgroundColor: Colors.tealAccent[200],
+        foregroundColor: Colors.black,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
