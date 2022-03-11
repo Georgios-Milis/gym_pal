@@ -195,7 +195,9 @@ class _RepSession extends State<RepSession> {
                       },
                       child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                     ),
-                  ]),
+                  ),
+                ],
+              ),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
