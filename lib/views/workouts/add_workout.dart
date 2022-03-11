@@ -367,18 +367,24 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                   child: Row(
                                     //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Image.asset(
-                                          'assets/images/panda-victorious.png'),
-                                      const Text("No, thanks"),
-                                      Switch(
-                                        value: _audio,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _audio = value;
-                                          });
-                                        },
-                                      ),
-                                      const Text("Yes!"),
+                                      Expanded(
+                                          flex: 6,
+                                          child: Image.asset(
+                                              'assets/images/panda-victorious.png')),
+                                      const Expanded(
+                                          flex: 2, child: Text("No, thanks")),
+                                      Expanded(
+                                          flex: 1,
+                                          child: Switch(
+                                            value: _audio,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _audio = value;
+                                              });
+                                            },
+                                          )),
+                                      const Expanded(
+                                          flex: 1, child: Text("Yes!")),
                                     ],
                                   ),
                                 ),
