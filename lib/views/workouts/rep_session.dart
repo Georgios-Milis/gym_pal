@@ -29,8 +29,7 @@ class _RepSession extends State<RepSession> {
     sets = widget.wk.sets;
     reps = widget.wk.reps;
     return Scaffold(
-        appBar:
-            header(context, isAppTitle: false, titleText: '${title} Session'),
+        appBar: header(context, isAppTitle: false, titleText: '$title session'),
         drawer: Drawer(
           child: sidenav(context),
         ),
@@ -196,6 +195,15 @@ class _RepSession extends State<RepSession> {
                       },
                       child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                     ),
+                  ),
+                ],
+              ),
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    child: Image.asset('assets/images/panda1-250.png'),
                   ),
                   SizedBox(
                     width: 120,
