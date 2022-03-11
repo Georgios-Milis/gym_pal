@@ -8,6 +8,8 @@ import 'package:gym_pal/views/workouts/workouts.dart';
 
 bool volumeClick = true;
 bool isRunning = false;
+int counter = 0;
+
 
 class RepSession extends StatefulWidget {
   late Workout wk;
