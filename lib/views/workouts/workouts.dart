@@ -107,6 +107,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             extentRatio: 0.2,
             motion: const ScrollMotion(),
             children: [
+<<<<<<< HEAD
               IconButton(
                 tooltip: "Edit",
                 icon: const Icon(Icons.edit_outlined),
@@ -121,6 +122,26 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                   });
                 },
               ),
+=======
+              Expanded(
+                  flex: 5,
+                  child: IconButton(
+                    tooltip: "Edit",
+                    icon: const Icon(Icons.edit_outlined),
+                    onPressed: () => _addEntry(_workouts[index]),
+                  )),
+              Expanded(
+                  flex: 5,
+                  child: IconButton(
+                    tooltip: "Delete",
+                    icon: const Icon(Icons.delete_outlined),
+                    onPressed: () {
+                      setState(() {
+                        _workouts.removeAt(index);
+                      });
+                    },
+                  )),
+>>>>>>> 5aba63dec9928ca3581031bb1289f25d17c1e867
             ],
           ),
           child: ListTile(
@@ -147,7 +168,8 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                   heroTag: index.toString(),
                   child: const Text(
                     "GO!",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   onPressed: () {
                     if (_workouts[index].timed) {

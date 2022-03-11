@@ -36,41 +36,11 @@ class _RepSession extends State<RepSession> {
         body: Center(
           child: Column(
             children: <Widget>[
-              const SizedBox(height: 20),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
-                  Widget>[
-                const Text("Set:  ", style: TextStyle(fontSize: 20)),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Text("3", style: TextStyle(fontSize: 20)),
-                  ),
-                ),
-                const Text("Of:", style: TextStyle(fontSize: 20)),
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Text("$sets", style: const TextStyle(fontSize: 20)),
-                  ),
-                ),
-              ]),
-              const SizedBox(height: 10),
+              SizedBox(height: 20),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    const Text("Reps:", style: TextStyle(fontSize: 20)),
+                    Text("Set:  ", style: TextStyle(fontSize: 20)),
                     Container(
                       width: 40,
                       height: 40,
@@ -79,12 +49,45 @@ class _RepSession extends State<RepSession> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5.0)),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(5),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
                         child: Text("3", style: TextStyle(fontSize: 20)),
                       ),
                     ),
-                    const Text("Of:", style: TextStyle(fontSize: 20)),
+                    Text("Of:", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text("${sets}", style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+                  ]),
+              SizedBox(height: 10),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("Reps:", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text("3", style: TextStyle(fontSize: 20)),
+                      ),
+                    ),
+                    Text("Of:", style: TextStyle(fontSize: 20)),
                     Container(
                       width: 40,
                       height: 40,
@@ -96,8 +99,8 @@ class _RepSession extends State<RepSession> {
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
-                          "$reps",
-                          style: const TextStyle(fontSize: 20),
+                          "${reps}",
+                          style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ),
@@ -105,54 +108,59 @@ class _RepSession extends State<RepSession> {
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SizedBox(
-                    width: 200,
-                    child: Image.asset('assets/images/panda1-250.png'),
-                  ),
-                  const SizedBox(width: 145),
-                  Column(
-                    children: <Widget>[
-                      SizedBox(
-                        child: IconButton(
-                          icon: Icon((volumeClick == false)
-                              ? (Icons.volume_up)
-                              : Icons.volume_off),
-                          onPressed: () {
-                            setState(() {
-                              volumeClick = !volumeClick;
-                            });
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: 120,
-                        child: TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.deepPurpleAccent[700]),
+                  Expanded(
+                      flex: 5,
+                      child: SizedBox(
+                        width: 200,
+                        child: Image.asset('assets/images/panda1-250.png'),
+                      )),
+                  Expanded(
+                      flex: 5,
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            child: IconButton(
+                              icon: Icon((volumeClick == false)
+                                  ? (Icons.volume_up)
+                                  : Icons.volume_off),
+                              onPressed: () {
+                                setState(() {
+                                  volumeClick = !volumeClick;
+                                });
+                              },
+                            ),
                           ),
-                          onPressed: () {},
-                          child: const Text('FASTER'),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: 120,
-                        child: TextButton(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.deepPurpleAccent[700]),
+                          SizedBox(
+                            width: 120,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.deepPurpleAccent[700]),
+                              ),
+                              onPressed: () {},
+                              child: Text('FASTER'),
+                            ),
                           ),
-                          onPressed: () {},
-                          child: const Text('SLOWER'),
-                        ),
-                      ),
-                    ],
-                  ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            width: 120,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.deepPurpleAccent[700]),
+                              ),
+                              onPressed: () {},
+                              child: Text('SLOWER'),
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
               Row(
@@ -168,7 +176,7 @@ class _RepSession extends State<RepSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {},
-                      child: const Text('RESET'),
+                      child: Text('RESET'),
                     ),
                   ),
                   SizedBox(
@@ -187,6 +195,13 @@ class _RepSession extends State<RepSession> {
                       },
                       child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                     ),
+                  ]),
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    width: 200,
+                    child: Image.asset('assets/images/panda1-250.png'),
                   ),
                   SizedBox(
                     width: 120,
@@ -200,7 +215,7 @@ class _RepSession extends State<RepSession> {
                       onPressed: () {
                         Navigator.of(context).pop;
                       },
-                      child: const Text('STOP'),
+                      child: Text('STOP'),
                     ),
                   ),
                 ],
