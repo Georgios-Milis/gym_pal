@@ -74,9 +74,13 @@ class _TimedSession extends State<TimedSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
+<<<<<<< HEAD
                       onPressed: () {
                         r= true;
                       },
+=======
+                      onPressed: () {},
+>>>>>>> 5f4d9a065fb64a4ed2b15d83bcef88dc8fd6c385
                       child: const Text('RESET'),
                     ),
                   ),
