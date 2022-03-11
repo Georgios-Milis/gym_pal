@@ -134,7 +134,8 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                   heroTag: index.toString(),
                   child: const Text(
                     "GO!",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                   onPressed: () {
                     if (_workouts[index].timed) {
