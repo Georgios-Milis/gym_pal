@@ -7,6 +7,13 @@ import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 import 'dart:async';
 
+import 'package:vibration/vibration.dart';
+/* USE
+if (await Vibration.hasVibrator()) {
+    Vibration.vibrate();
+}
+*/
+
 bool volumeClick = true;
 bool isRunning = false;
 int counter_sets = 0;
@@ -26,49 +33,50 @@ class _RepSession extends State<RepSession> {
   late String? title;
   late int? sets;
   late int? reps;
-  late Duration duration = Duration(seconds:0);
+  late Duration duration = Duration(seconds: 0);
   Timer? timer;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     reset();
     startTimer();
   }
 
-  void reset(){
+  void reset() {
     setState(() => duration = du);
   }
 
-  void stopTimer(){
+  void stopTimer() {
     setState(() => timer?.cancel());
   }
 
-  void addTime(){
+  void addTime() {
     final addSeconds = 1;
-    if(isRunning == true){
-    setState(() {
-      final seconds = duration.inSeconds + addSeconds;
-      if (seconds<0){
-        timer?.cancel();
-      }
-      duration = Duration(seconds: seconds);
-      if(duration.inSeconds % pace == 0 ) addcnt();
-    });}
+    if (isRunning == true) {
+      setState(() {
+        final seconds = duration.inSeconds + addSeconds;
+        if (seconds < 0) {
+          timer?.cancel();
+        }
+        duration = Duration(seconds: seconds);
+        if (duration.inSeconds % pace == 0) addcnt();
+      });
+    }
   }
 
-  void startTimer(){
-    timer = Timer.periodic(Duration(seconds:1),(_)=>addTime());
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
   }
 
-  void addcnt(){
-      if(counter_reps!= reps){
-        counter_reps += 1;
-      }
-      if(counter_reps == reps && counter_sets !=sets){
-        counter_reps = 0;
-        counter_sets += 1;
-      }
+  void addcnt() {
+    if (counter_reps != reps) {
+      counter_reps += 1;
+    }
+    if (counter_reps == reps && counter_sets != sets) {
+      counter_reps = 0;
+      counter_sets += 1;
+    }
   }
 
   @override
@@ -85,74 +93,70 @@ class _RepSession extends State<RepSession> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text("Set:  ", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("${counter_sets}", style: TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                    Text("Of:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("${sets}", style: TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                  ]),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
+                  Widget>[
+                Text("Set:  ", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child:
+                        Text("${counter_sets}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+                Text("Of:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text("${sets}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+              ]),
               SizedBox(height: 10),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text("Reps:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("${counter_reps}", style: TextStyle(fontSize: 20)),
-                      ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
+                  Widget>[
+                Text("Reps:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child:
+                        Text("${counter_reps}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+                Text("Of:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      "${reps}",
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Text("Of:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(
-                          "${reps}",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ]),
+                  ),
+                ),
+              ]),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -188,7 +192,9 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {if (pace !=1)pace -=1;},
+                              onPressed: () {
+                                if (pace != 1) pace -= 1;
+                              },
                               child: Text('FASTER'),
                             ),
                           ),
@@ -203,7 +209,9 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {if(pace != 5) pace +=1;},
+                              onPressed: () {
+                                if (pace != 5) pace += 1;
+                              },
                               child: Text('SLOWER'),
                             ),
                           ),
@@ -223,7 +231,10 @@ class _RepSession extends State<RepSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () {counter_sets = 0; counter_reps = 0;},
+                      onPressed: () {
+                        counter_sets = 0;
+                        counter_reps = 0;
+                      },
                       child: Text('RESET'),
                     ),
                   ),

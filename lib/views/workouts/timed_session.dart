@@ -6,6 +6,8 @@ import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
+import 'package:vibration/vibration.dart';
+
 bool volumeClick = true;
 
 class TimedSession extends StatefulWidget {
