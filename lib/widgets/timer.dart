@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
 late Duration du = Duration();
+bool isRunning = false;
 
 class CountdownPage extends StatefulWidget {
   CountdownPage(Duration d,{Key? key}) : super(key: key){du = d;}
@@ -19,6 +20,7 @@ class _CountdownPageState extends State<CountdownPage>{
   void initState(){
     super.initState();
     reset();
+    startTimer();
   }
 
   void reset(){
@@ -28,16 +30,23 @@ class _CountdownPageState extends State<CountdownPage>{
   void stopTimer(){
     setState(() => timer?.cancel());
   }
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
 
   void addTime(){
     final addSeconds = -1;
+    if(isRunning == true){
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
-      if (seconds<0){
+      if (seconds<=0){
         timer?.cancel();
       }
       duration = Duration(seconds: seconds);
     });
+    }
   }
 
   void startTimer(){

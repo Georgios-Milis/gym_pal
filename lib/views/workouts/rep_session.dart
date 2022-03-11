@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
-//import 'package:gym_pal/widgets/timer.dart';
+import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
+import 'dart:async';
+
+//import 'package:vibration/vibration.dart';
 
 bool volumeClick = true;
 bool isRunning = false;
-int counter = 0;
+int counter_sets = 1;
+int counter_reps = 0;
+int pace = 3;
 
 class RepSession extends StatefulWidget {
   late Workout wk;
@@ -23,6 +28,81 @@ class _RepSession extends State<RepSession> {
   late String? title;
   late int? sets;
   late int? reps;
+  late Duration duration = Duration(seconds: 0);
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    reset();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  void reset() {
+    setState(() => duration = du);
+  }
+
+  void stopTimer() {
+    setState(() => timer?.cancel());
+  }
+
+  void addTime() {
+    final addSeconds = 1;
+    if (isRunning == true) {
+      setState(() {
+        final seconds = duration.inSeconds + addSeconds;
+        if (seconds < 0) {
+          timer?.cancel();
+        }
+        duration = Duration(seconds: seconds);
+        if (duration.inSeconds % pace == 0) addcnt();
+      });
+    }
+  }
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+  }
+
+  void addcnt() {
+    if (counter_reps != reps) {
+      counter_reps += 1;
+    }
+    if (counter_reps == reps && counter_sets != sets) {
+      counter_reps = 0;
+      counter_sets += 1;
+    }
+  }
+
+  void finish() {
+    setState(() async {
+      if (counter_reps == reps && counter_sets == sets) {
+        //if (await Vibration.hasVibrator()) {
+        //  Vibration.vibrate();
+        //}
+        showDialog<Icon>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('You did this!'),
+            content: Image.asset('assets/images/panda-victorious.png'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Thanks!'),
+              ),
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     title = widget.wk.title;
@@ -37,74 +117,70 @@ class _RepSession extends State<RepSession> {
           child: Column(
             children: <Widget>[
               SizedBox(height: 20),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text("Set:  ", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("3", style: TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                    Text("Of:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("${sets}", style: TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                  ]),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
+                  Widget>[
+                Text("Set:  ", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child:
+                        Text("${counter_sets}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+                Text("Of:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text("${sets}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+              ]),
               SizedBox(height: 10),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text("Reps:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("3", style: TextStyle(fontSize: 20)),
-                      ),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <
+                  Widget>[
+                Text("Reps:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child:
+                        Text("${counter_reps}", style: TextStyle(fontSize: 20)),
+                  ),
+                ),
+                Text("Of:", style: TextStyle(fontSize: 20)),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Text(
+                      "${reps}",
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Text("Of:", style: TextStyle(fontSize: 20)),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(
-                          "${reps}",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ]),
+                  ),
+                ),
+              ]),
               Row(
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -140,7 +216,9 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (pace != 1) pace -= 1;
+                              },
                               child: Text('FASTER'),
                             ),
                           ),
@@ -155,7 +233,9 @@ class _RepSession extends State<RepSession> {
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.deepPurpleAccent[700]),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                if (pace != 5) pace += 1;
+                              },
                               child: Text('SLOWER'),
                             ),
                           ),
@@ -175,7 +255,10 @@ class _RepSession extends State<RepSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        counter_sets = 0;
+                        counter_reps = 0;
+                      },
                       child: Text('RESET'),
                     ),
                   ),
@@ -215,7 +298,10 @@ class _RepSession extends State<RepSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop;
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                        Navigator.pop(context);
                       },
                       child: Text('STOP'),
                     ),

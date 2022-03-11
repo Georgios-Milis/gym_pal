@@ -6,8 +6,9 @@ import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
+//import 'package:vibration/vibration.dart';
+
 bool volumeClick = true;
-bool isRunning = false;
 
 class TimedSession extends StatefulWidget {
   late Workout wk;
@@ -73,9 +74,7 @@ class _TimedSession extends State<TimedSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () {
-                        tmr.a.reset();
-                      },
+                      onPressed: () {},
                       child: const Text('RESET'),
                     ),
                   ),
@@ -92,11 +91,6 @@ class _TimedSession extends State<TimedSession> {
                         setState(() {
                           isRunning = !isRunning;
                         });
-                        if (isRunning == true) {
-                          tmr.a.startTimer();
-                        } else {
-                          tmr.a.stopTimer();
-                        }
                       },
                       child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                     ),
@@ -111,7 +105,10 @@ class _TimedSession extends State<TimedSession> {
                             Colors.deepPurpleAccent[700]),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop;
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                        Navigator.pop(context);
                       },
                       child: const Text('STOP'),
                     ),
