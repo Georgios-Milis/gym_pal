@@ -7,7 +7,7 @@ import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
-import 'package:gym_pal/widgets/bottom.dart';
+//import 'package:gym_pal/widgets/bottom.dart';
 
 class CounterWidget extends StatefulWidget {
   String _title = "Count";
