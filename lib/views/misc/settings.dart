@@ -74,12 +74,18 @@ class _SettingsState extends State<Settings> {
           ),
           const Divider(),
           const Text("Logout"),
-          TextButton(
-            onPressed: () {},
-            child: const Text("LOGOUT"),
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
+          SizedBox(
+            width: 200,
+            height: 30,
+            child: TextButton(
+              onPressed: () {},
+              child: const Text("LOGOUT"),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(Colors.deepPurple[100]),
+                foregroundColor:
+                    MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
+              ),
             ),
           ),
         ],
