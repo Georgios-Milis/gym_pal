@@ -3,6 +3,7 @@ import 'package:gym_pal/views/workouts/timed_session.dart';
 import 'package:gym_pal/views/workouts/rep_session.dart';
 import 'package:camera/camera.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
+import 'package:gym_pal/views/home/home.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
@@ -16,7 +17,6 @@ Future<void> main() async {
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Colors.tealAccent),
     ),
-    home: WorkoutsPage(),
-
+    home: Home(),
   ));
 }

@@ -161,7 +161,19 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-            )
+            ),
+            // Add divider
+            const SizedBox(height: 10.0),
+            const Text(
+              'or',
+              style: TextStyle(
+                fontSize: 25.0,
+                color: Colors.white,
+              ),
+            ),
+            // Add divider
+            const SizedBox(height: 10.0),
+            // Add input field
           ],
         ),
       ),
