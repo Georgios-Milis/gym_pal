@@ -8,14 +8,6 @@ import 'package:gym_pal/views/workouts/workouts.dart';
 import 'dart:async';
 
 //import 'package:vibration/vibration.dart';
-<<<<<<< HEAD
-/* USE
-if (await Vibration.hasVibrator()) {
-    Vibration.vibrate();
-}
-*/
-=======
->>>>>>> 5f4d9a065fb64a4ed2b15d83bcef88dc8fd6c385
 
 bool volumeClick = true;
 bool isRunning = false;
