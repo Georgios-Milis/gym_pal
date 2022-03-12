@@ -15,6 +15,51 @@ class Credits extends StatelessWidget {
         child: sidenav(context),
       ),
       bottomNavigationBar: bottom(context),
+      body: Center(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  child: Image.asset('assets/images/robot2.png'),
+                  width: 200,
+                  height: 200,
+                ),
+                const Text(
+                  "George \n Team Leader \n & \n General Overlord",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  child: Image.asset('assets/images/robot1.png'),
+                  width: 200,
+                  height: 200,
+                ),
+                const Text(
+                  "Apostolos \n Design \n Specialist",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  child: Image.asset('assets/images/robot3.png'),
+                  width: 200,
+                  height: 200,
+                ),
+                const Text(
+                  "Thomas \n Creative Genius",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
