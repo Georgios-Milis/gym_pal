@@ -86,21 +86,28 @@ class _RepSession extends State<RepSession> {
         //if (await Vibration.hasVibrator()) {
         //  Vibration.vibrate();
         //}
-        showDialog<Icon>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text('You did this!'),
-            content: Image.asset('assets/images/panda-victorious.png'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Thanks!'),
-              ),
-            ],
-          ),
-        );
+        await congrats();
       }
     });
+  }
+
+  Future<void> congrats() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('You did this!'),
+          content: Image.asset('assets/images/panda-victorious.png'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Thanks!'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
