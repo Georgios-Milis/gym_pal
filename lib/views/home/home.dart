@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 import 'package:gym_pal/views/home/home_gym_pal.dart';
 import 'package:gym_pal/views/home/home_health_pal.dart';
@@ -21,10 +22,19 @@ class _HomeState extends State<Home> {
   int pageIndex = 0;
   String username = "";
 
+  // TTS TEST
+  final FlutterTts tts = FlutterTts();
+  final TextEditingController controller =
+      TextEditingController(text: 5.toString());
+
   @override
   void initState() {
     super.initState();
     pageController = PageController();
+
+    tts.setLanguage('en');
+    tts.setSpeechRate(0.4);
+    tts.speak(controller.text);
 
     // Detects when user signed in
     googleSignIn.onCurrentUserChanged.listen((account) {
