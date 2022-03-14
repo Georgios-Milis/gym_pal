@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:gym_pal/views/home/home.dart';
+import 'dart:developer';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
+import 'package:gym_pal/main.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -12,12 +14,10 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final _passwordController = TextEditingController();
   bool _dark = false;
 
   @override
   void dispose() {
-    _passwordController.dispose();
     super.dispose();
   }
 
@@ -29,66 +29,80 @@ class _SettingsState extends State<Settings> {
         child: sidenav(context),
       ),
       bottomNavigationBar: bottom(context),
-      body: Column(
-        children: [
-          const Divider(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text("Change password"),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              decoration: const InputDecoration(
-                hintText: "New password",
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  const Expanded(
+                    flex: 5,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "Dark mode",
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontFamily: "Signatra",
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Switch(
+                        value: _dark,
+                        onChanged: (value) {
+                          if (value) {
+                            HCIApp.of(context)?.changeTheme(ThemeMode.dark);
+                          } else {
+                            HCIApp.of(context)?.changeTheme(ThemeMode.light);
+                          }
+                          setState(() {
+                            _dark = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              controller: _passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Password cannot be empty!";
-                }
-                return null;
-              },
             ),
-          ),
-          const Divider(),
-          Flexible(
-            flex: 50,
-            fit: FlexFit.loose,
-            child: Row(
-              children: [
-                const Text("Dark mode"),
-                Switch(
-                  value: _dark,
-                  onChanged: (value) {
-                    setState(() {
-                      _dark = value;
-                    });
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.center,
+                child: TextButton(
+                  onPressed: () {
+                    isAuth = false;
+                    googleSignIn.signOut();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Home(),
+                    ));
                   },
+                  child: const Text(
+                    "LOGOUT",
+                    style: TextStyle(
+                      fontSize: 24,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(Size.fromHeight(70)),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.deepPurple[100]),
+                    foregroundColor:
+                        MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
+                  ),
                 ),
-              ],
-            ),
-          ),
-          const Divider(),
-          const Text("Logout"),
-          SizedBox(
-            width: 200,
-            height: 30,
-            child: TextButton(
-              onPressed: () {},
-              child: const Text("LOGOUT"),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.deepPurple[100]),
-                foregroundColor:
-                    MaterialStateProperty.all(Colors.deepPurpleAccent[700]),
               ),
             ),
-          ),
-        ],
+            Expanded(flex: 6, child: Container()),
+          ],
+        ),
       ),
     );
   }

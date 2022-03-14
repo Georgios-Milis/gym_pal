@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -36,86 +37,101 @@ class _TimedSession extends State<TimedSession> {
         body: Center(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: tmr,
+              Expanded(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Expanded(
+                      flex: 4,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: tmr,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: SizedBox(
+                        width: 200,
+                        child: Image.asset('assets/images/panda1-250.png'),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        child: IconButton(
+                          iconSize: 72,
+                          icon: Icon((volumeClick == false)
+                              ? (Icons.volume_up)
+                              : Icons.volume_off),
+                          onPressed: () {
+                            setState(() {
+                              volumeClick = !volumeClick;
+                            });
+                          },
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  SizedBox(
-                    width: 200,
-                    child: Image.asset('assets/images/panda1-250.png'),
-                  ),
-                  SizedBox(
-                    child: IconButton(
-                      icon: Icon((volumeClick == false)
-                          ? (Icons.volume_up)
-                          : Icons.volume_off),
-                      onPressed: () {
-                        setState(() {
-                          volumeClick = !volumeClick;
-                        });
-                      },
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  SizedBox(
-                    width: 120,
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.deepPurpleAccent[700]),
+              Expanded(
+                flex: 5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 120,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.deepPurpleAccent[700]),
+                        ),
+                        onPressed: () {
+                          r = true;
+                        },
+                        child: const Text('RESET'),
                       ),
-                      onPressed: () {
-                        r= true;
-                      },
-                      child: const Text('RESET'),
                     ),
-                  ),
-                  SizedBox(
-                    width: 120,
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.deepPurpleAccent[700]),
+                    SizedBox(
+                      width: 120,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.deepPurpleAccent[700]),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isRunning = !isRunning;
+                          });
+                        },
+                        child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isRunning = !isRunning;
-                        });
-                      },
-                      child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
                     ),
-                  ),
-                  SizedBox(
-                    width: 120,
-                    child: TextButton(
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.deepPurpleAccent[700]),
+                    SizedBox(
+                      width: 120,
+                      child: TextButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.deepPurpleAccent[700]),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isRunning = !isRunning;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: const Text('STOP'),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isRunning = !isRunning;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: const Text('STOP'),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),

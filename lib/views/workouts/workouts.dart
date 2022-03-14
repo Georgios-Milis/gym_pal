@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:duration_picker/duration_picker.dart';
 
+import 'dart:developer';
+
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:gym_pal/views/workouts/add_workout.dart';
@@ -96,6 +98,16 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
   }
 
   Widget _buildWorkoutList() {
+    editAction(context) {
+      inspect(context);
+      return 0;
+    }
+
+    deleteAction(context) {
+      inspect(context);
+      return 0;
+    }
+
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: _workouts.length,
@@ -104,23 +116,48 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         return Slidable(
           key: ValueKey(index),
           endActionPane: ActionPane(
-            extentRatio: 0.2,
+            extentRatio: 0.50,
             motion: const ScrollMotion(),
             children: [
-              IconButton(
-                tooltip: "Edit",
-                icon: const Icon(Icons.edit_outlined),
-                onPressed: () => _addEntry(_workouts[index], index, edit: true),
+              SlidableAction(
+                // onPressed: _addEntry(_workouts[index], index, edit: true),
+                onPressed: editAction,
+                backgroundColor: const Color(0xFF0516B6),
+                foregroundColor: Colors.white,
+                icon: Icons.edit_outlined,
+                autoClose: true,
+                label: 'Edit',
               ),
-              IconButton(
-                tooltip: "Delete",
-                icon: const Icon(Icons.delete_outlined),
-                onPressed: () {
-                  setState(() {
-                    _workouts.removeAt(index);
-                  });
-                },
+              SlidableAction(
+                // onPressed: _addEntry(_workouts[index], index, edit: true),
+                onPressed: deleteAction,
+                backgroundColor: const Color.fromARGB(255, 216, 5, 5),
+                foregroundColor: Colors.white,
+                icon: Icons.delete_outlined,
+                autoClose: true,
+                label: 'Delete',
               ),
+              // Expanded(
+              //   flex: 5,
+              //   child: IconButton(
+              //     tooltip: "Edit",
+              //     icon: const Icon(Icons.edit_outlined),
+              //     onPressed: () =>
+              //         _addEntry(_workouts[index], index, edit: true),
+              //   ),
+              // ),
+              // Expanded(
+              //   flex: 5,
+              //   child: IconButton(
+              //     tooltip: "Delete",
+              //     icon: const Icon(Icons.delete_outlined),
+              //     onPressed: () {
+              //       setState(() {
+              //         _workouts.removeAt(index);
+              //       });
+              //     },
+              //   ),
+              // ),
             ],
           ),
           child: ListTile(
@@ -129,6 +166,10 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                 ? formatDuration(_workouts[index].duration)
                 : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
             tileColor: Colors.tealAccent[400],
+            selectedColor: Colors.tealAccent[400],
+            selectedTileColor: Colors.tealAccent[400],
+            focusColor: Colors.tealAccent[400],
+            hoverColor: Colors.tealAccent[400],
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
