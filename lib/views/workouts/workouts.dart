@@ -26,15 +26,14 @@ class Workout {
   final int? sets;
   final int? reps;
   final Duration? duration;
-  final bool coach;
 
-  Workout(
-      {required this.timed,
-      required this.title,
-      this.sets,
-      this.reps,
-      this.duration,
-      required this.coach});
+  Workout({
+    required this.timed,
+    required this.title,
+    this.sets,
+    this.reps,
+    this.duration,
+  });
 }
 
 class _WorkoutsPageState extends State<WorkoutsPage> {
@@ -42,7 +41,6 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   void _addEntry(Workout? w, int i, {bool edit = false}) async {
     Entry toEdit = Entry(
-      coach: true,
       timed: false,
       title: "",
       sets: 0,
@@ -52,7 +50,6 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
     if (w != null) {
       toEdit = Entry(
         title: w.title,
-        coach: w.coach,
         timed: w.timed,
         sets: (w.sets == null) ? 0 : w.sets!,
         reps: (w.reps == null) ? 0 : w.reps!,
@@ -72,7 +69,6 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         sets: _newEntry.sets,
         reps: _newEntry.reps,
         duration: _newEntry.duration,
-        coach: _newEntry.coach,
       );
       if (edit == false) {
         _workouts.add(newWorkout);
@@ -176,13 +172,10 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             trailing: Wrap(
               spacing: 10,
               children: <Widget>[
-                Visibility(
-                  visible: _workouts[index].coach,
-                  child: IconButton(
-                    icon: Image.asset('assets/images/Panda.png'),
-                    onPressed: () {},
-                    tooltip: "Audio Feedback",
-                  ),
+                IconButton(
+                  icon: Image.asset('assets/images/Panda.png'),
+                  onPressed: () {},
+                  tooltip: "Audio Feedback",
                 ),
                 FloatingActionButton(
                   heroTag: index.toString(),
@@ -219,7 +212,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Workout start = Workout(coach: true, title: "", timed: false);
+    Workout start = Workout(title: "", timed: false);
     return Scaffold(
       appBar: header(context, isAppTitle: false, titleText: 'My Workouts'),
       drawer: Drawer(

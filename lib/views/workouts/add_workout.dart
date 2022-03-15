@@ -102,15 +102,14 @@ class Entry {
   final int sets;
   final int reps;
   final Duration duration;
-  final bool coach;
 
-  Entry(
-      {required this.timed,
-      required this.title,
-      required this.sets,
-      required this.reps,
-      required this.duration,
-      required this.coach});
+  Entry({
+    required this.timed,
+    required this.title,
+    required this.sets,
+    required this.reps,
+    required this.duration,
+  });
 }
 
 class ViewEditWorkoutWidget extends StatefulWidget {
@@ -131,7 +130,6 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
 
   late Entry lastEntry = widget.lastEntry;
 
-  late bool _audio = lastEntry.coach;
   late final int _sets = lastEntry.sets;
   late final int _reps = lastEntry.reps;
 
@@ -194,7 +192,6 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                               sets: _setsCounter._count,
                               reps: _repsCounter._count,
                               duration: const Duration(),
-                              coach: _audio,
                             );
                             Navigator.pop(context, workout);
                           }
@@ -209,7 +206,6 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                               sets: 0,
                               reps: 0,
                               duration: _duration,
-                              coach: _audio,
                             );
                             Navigator.pop(context, workout);
                           }
@@ -273,36 +269,15 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                   height: 20,
                                 ),
                                 const Text(
-                                  "Hey pal! Want audio feedback while training?",
+                                  "Hey pal! I'll be counting reps live to help you train!",
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                SizedBox(
-                                  //width: 600,
-                                  child: Row(
-                                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Expanded(
-                                          flex: 6,
-                                          child: Image.asset(
-                                              'assets/images/panda-victorious.png')),
-                                      const Expanded(
-                                          flex: 2, child: Text("No, thanks")),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Switch(
-                                            value: _audio,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _audio = value;
-                                              });
-                                            },
-                                          )),
-                                      const Expanded(
-                                          flex: 1, child: Text("Yes!")),
-                                    ],
-                                  ),
+                                Expanded(
+                                  flex: 6,
+                                  child: Image.asset(
+                                      'assets/images/panda-victorious.png'),
                                 ),
                               ],
                             ),
@@ -366,36 +341,15 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                   height: 20,
                                 ),
                                 const Text(
-                                  "Hey pal! Want audio feedback while training?",
+                                  "Hey pal! I'll be timig you to help ypu train!",
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                SizedBox(
-                                  //width: 600,
-                                  child: Row(
-                                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Expanded(
-                                          flex: 6,
-                                          child: Image.asset(
-                                              'assets/images/panda-victorious.png')),
-                                      const Expanded(
-                                          flex: 2, child: Text("No, thanks")),
-                                      Expanded(
-                                          flex: 1,
-                                          child: Switch(
-                                            value: _audio,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _audio = value;
-                                              });
-                                            },
-                                          )),
-                                      const Expanded(
-                                          flex: 1, child: Text("Yes!")),
-                                    ],
-                                  ),
+                                Expanded(
+                                  flex: 6,
+                                  child: Image.asset(
+                                      'assets/images/panda-victorious.png'),
                                 ),
                               ],
                             ),
