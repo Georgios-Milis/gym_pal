@@ -109,7 +109,7 @@ class _TimedSession extends State<TimedSession> {
                             isRunning = !isRunning;
                           });
                         },
-                        child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
+                        child: Text(isRunning == true ? 'PAUSE' : 'GO!'),
                       ),
                     ),
                     SizedBox(

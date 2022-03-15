@@ -74,7 +74,7 @@ class _CountdownPageState extends State<CountdownPage> {
       setState(() {
         var seconds = duration.inSeconds + addSeconds;
         if (seconds <= 0 && !volumeClick) {
-          tts.speak('Time is up');
+          tts.speak('Time is up. Well done, pal!');
         }
         if (seconds <= 0) {
           timer?.cancel();

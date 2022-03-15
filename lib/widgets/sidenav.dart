@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:gym_pal/views/home/home.dart';
+import 'package:gym_pal/views/home/home_health_pal.dart';
 
 import 'package:gym_pal/views/misc/settings.dart';
 import 'package:gym_pal/views/misc/credits.dart';
+
+import '../views/home/home_gym_pal.dart';
 
 ListView sidenav(context) {
   return ListView(

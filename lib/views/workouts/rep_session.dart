@@ -36,6 +36,8 @@ class _RepSession extends State<RepSession> {
   late Duration duration = Duration(seconds: 0);
   Timer? timer;
 
+  bool finished = false;
+
   @override
   void initState() {
     super.initState();
@@ -81,6 +83,17 @@ class _RepSession extends State<RepSession> {
         }
         duration = Duration(seconds: seconds);
         if (duration.inSeconds % pace == 0) addcnt();
+
+        if (counter_reps == reps && counter_sets == sets) {
+          finished = true;
+          //if (await Vibration.hasVibrator()) {
+          //  Vibration.vibrate();
+          //}
+          if (finished) {
+            finished = false;
+            finish();
+          }
+        }
       });
     }
   }
@@ -105,28 +118,22 @@ class _RepSession extends State<RepSession> {
     }
   }
 
-  void finish() {
-    setState(() async {
-      if (counter_reps == reps && counter_sets == sets) {
-        //if (await Vibration.hasVibrator()) {
-        //  Vibration.vibrate();
-        //}
-        await congrats();
-      }
-    });
+  void finish() async {
+    await congrats();
   }
 
-  Future<void> congrats() async {
+  Future<void> congrats() {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('You did this!'),
           content: Image.asset('assets/images/panda-victorious.png'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () =>
+                  Navigator.of(context, rootNavigator: true).pop('dialog'),
               child: const Text('Thanks!'),
             ),
           ],
@@ -317,10 +324,7 @@ class _RepSession extends State<RepSession> {
                           backgroundColor: MaterialStateProperty.all(
                               Colors.deepPurpleAccent[700]),
                         ),
-                        onPressed: () {
-                          counter_sets = 0;
-                          counter_reps = 0;
-                        },
+                        onPressed: () => reset,
                         child: const Text('RESET'),
                       ),
                     ),
@@ -338,7 +342,7 @@ class _RepSession extends State<RepSession> {
                             isRunning = !isRunning;
                           });
                         },
-                        child: Text(isRunning == true ? 'PAUSE' : 'PLAY'),
+                        child: Text(isRunning == true ? 'PAUSE' : 'GO!'),
                       ),
                     ),
                     SizedBox(
