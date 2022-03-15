@@ -39,38 +39,38 @@ class _Home2 extends State<HomeHealthPal> {
                           child: Column(
                             children: const [
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   "Hi!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 48,
+                                    fontSize: 34,
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: "Signatra",
+                                    fontFamily: "McLaren",
                                     color: Color.fromARGB(255, 0, 255, 229),
                                   ),
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   "I'm Dr.Tiger, your Health Pal!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 36,
-                                    fontFamily: "Signatra",
+                                    fontSize: 24,
+                                    fontFamily: "McLaren",
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 3,
                                 child: Text(
                                   "I will help you monitor your health and achieve your goals with your workouts!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 28,
-                                    fontFamily: "Signatra",
+                                    fontSize: 22,
+                                    fontFamily: "McLaren",
                                     color: Color.fromARGB(255, 0, 255, 229),
                                   ),
                                 ),
@@ -101,7 +101,7 @@ class _Home2 extends State<HomeHealthPal> {
                     child: SizedBox(
                       width: 200,
                       child: ElevatedButton(
-                        child: const Text("START NOW!"),
+                        child: const Text("SHOW ME!"),
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
                             Colors.deepPurpleAccent,
