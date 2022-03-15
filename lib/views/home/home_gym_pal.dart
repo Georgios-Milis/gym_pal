@@ -40,38 +40,38 @@ class _HomeGymPalState extends State<HomeGymPal> {
                           child: Column(
                             children: const [
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   "Hi!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 48,
+                                    fontSize: 34,
                                     fontWeight: FontWeight.bold,
-                                    fontFamily: "Signatra",
+                                    fontFamily: "McLaren",
                                     color: Color.fromARGB(255, 0, 255, 229),
                                   ),
                                 ),
                               ),
                               Expanded(
-                                flex: 3,
+                                flex: 2,
                                 child: Text(
                                   "I'm Pandy, your Gym Pal!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 36,
-                                    fontFamily: "Signatra",
+                                    fontSize: 24,
+                                    fontFamily: "McLaren",
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                               Expanded(
-                                flex: 4,
+                                flex: 3,
                                 child: Text(
                                   "Let's create some custom sessions so that we can work out together!",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    fontSize: 28,
-                                    fontFamily: "Signatra",
+                                    fontSize: 22,
+                                    fontFamily: "McLaren",
                                     color: Color.fromARGB(255, 0, 255, 229),
                                   ),
                                 ),
