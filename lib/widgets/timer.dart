@@ -54,16 +54,6 @@ class _CountdownPageState extends State<CountdownPage> {
     if (duration == du && isRunning == true && !volumeClick) {
       tts.speak("Get ready for your workout!");
       sleep(Duration(seconds: 3));
-      tts.speak("5");
-      sleep(Duration(seconds: 1));
-      tts.speak("4");
-      sleep(Duration(seconds: 1));
-      tts.speak("3");
-      sleep(Duration(seconds: 1));
-      tts.speak("2");
-      sleep(Duration(seconds: 1));
-      tts.speak("1");
-      sleep(Duration(seconds: 1));
       tts.speak("Go!");
       sleep(Duration(seconds: 1));
       // @todo: fix! we are losing a second here because the next addTime
@@ -74,7 +64,7 @@ class _CountdownPageState extends State<CountdownPage> {
       setState(() {
         var seconds = duration.inSeconds + addSeconds;
         if (seconds <= 0 && !volumeClick) {
-          tts.speak('Time is up. Well done, pal!');
+          tts.speak('Time is up. Well done pal!');
         }
         if (seconds <= 0) {
           timer?.cancel();

@@ -36,6 +36,7 @@ dev_dependencies:
 
 flutter_icons:
   image_path: "assets/images/Panda.png" 
+  android: true
 
 flutter:
   uses-material-design: true
