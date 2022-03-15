@@ -149,226 +149,246 @@ class _RepSession extends State<RepSession> {
     sets = widget.wk.sets;
     reps = widget.wk.reps;
     return Scaffold(
-        appBar: header(context, isAppTitle: false, titleText: '$title session'),
-        drawer: Drawer(
-          child: sidenav(context),
-        ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text("Set:  ", style: TextStyle(fontSize: 20)),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text("${counter_sets}",
-                              style: TextStyle(fontSize: 20)),
-                        ),
+      appBar: header(context, isAppTitle: false, titleText: '$title session'),
+      drawer: Drawer(
+        child: sidenav(context),
+      ),
+      body: Center(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text("Set:  ", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
                       ),
-                      Text("Of:", style: TextStyle(fontSize: 20)),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child:
-                              Text("${sets}", style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                    ]),
-              ),
-              Expanded(
-                flex: 1,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Text("Reps:", style: TextStyle(fontSize: 20)),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text("${counter_reps}",
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                      Text("Of:", style: TextStyle(fontSize: 20)),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                            "${reps}",
-                            style: TextStyle(fontSize: 20),
+                      child: Center(
+                        child: Text(
+                          "${counter_sets}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    ]),
-              ),
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  child: IconButton(
-                    iconSize: 72,
-                    icon: Icon((volumeClick == false)
-                        ? (Icons.volume_up)
-                        : Icons.volume_off),
-                    onPressed: () {
-                      setState(() {
-                        volumeClick = !volumeClick;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 4,
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Expanded(
-                        flex: 5,
-                        child: SizedBox(
-                          width: 200,
-                          child: Image.asset('assets/images/panda1-250.png'),
-                        )),
-                    Expanded(
-                        flex: 5,
-                        child: Column(
-                          children: <Widget>[
-                            // Add divider
-                            Expanded(flex: 2, child: Container()),
-                            Expanded(
-                              flex: 2,
-                              child: SizedBox(
-                                width: 120,
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.deepPurpleAccent[700]),
-                                  ),
-                                  onPressed: () {
-                                    if (pace != 1) pace -= 1;
-                                  },
-                                  child: const Text('FASTER'),
-                                ),
-                              ),
-                            ),
-                            Expanded(flex: 2, child: Container()),
-                            Expanded(
-                              flex: 2,
-                              child: SizedBox(
-                                width: 120,
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Colors.deepPurpleAccent[700]),
-                                  ),
-                                  onPressed: () {
-                                    if (pace != 5) pace += 1;
-                                  },
-                                  child: Text('SLOWER'),
-                                ),
-                              ),
-                            ),
-                            Expanded(flex: 2, child: Container()),
-                          ],
-                        )),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Row(
+                    ),
+                    Text("Of:", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "${sets}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ]),
+            ),
+            Expanded(
+              flex: 1,
+              child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    SizedBox(
-                      width: 120,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all(
-                              Colors.deepPurpleAccent[700]),
+                    Text("Reps:", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "${counter_reps}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                        onPressed: () => reset,
-                        child: const Text('RESET'),
                       ),
                     ),
-                    SizedBox(
-                      width: 120,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all(
-                              Colors.deepPurpleAccent[700]),
+                    Text("Of:", style: TextStyle(fontSize: 20)),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "${reps}",
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            isRunning = !isRunning;
-                          });
-                        },
-                        child: Text(isRunning == true ? 'PAUSE' : 'GO!'),
                       ),
                     ),
-                    SizedBox(
-                      width: 120,
-                      child: TextButton(
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all(
-                              Colors.deepPurpleAccent[700]),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            isRunning = !isRunning;
-                          });
-                          Navigator.pop(context);
-                        },
-                        child: Text('STOP'),
-                      ),
-                    ),
-                  ],
+                  ]),
+            ),
+            Expanded(
+              flex: 2,
+              child: SizedBox(
+                child: IconButton(
+                  iconSize: 72,
+                  icon: Icon((volumeClick == false)
+                      ? (Icons.volume_up)
+                      : Icons.volume_off),
+                  onPressed: () {
+                    setState(() {
+                      volumeClick = !volumeClick;
+                    });
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Row(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                      flex: 5,
+                      child: SizedBox(
+                        width: 200,
+                        child: Image.asset('assets/images/panda1-250.png'),
+                      )),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      children: <Widget>[
+                        // Add divider
+                        Expanded(flex: 2, child: Container()),
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox(
+                            width: 120,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.deepPurpleAccent[700]),
+                              ),
+                              onPressed: () {
+                                if (pace != 1) pace -= 1;
+                              },
+                              child: const Text('FASTER'),
+                            ),
+                          ),
+                        ),
+                        Expanded(flex: 2, child: Container()),
+                        Expanded(
+                          flex: 2,
+                          child: SizedBox(
+                            width: 120,
+                            child: TextButton(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.deepPurpleAccent[700]),
+                              ),
+                              onPressed: () {
+                                if (pace != 5) pace += 1;
+                              },
+                              child: const Text('SLOWER'),
+                            ),
+                          ),
+                        ),
+                        Expanded(flex: 2, child: Container()),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    width: 120,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.deepPurpleAccent[700]),
+                      ),
+                      onPressed: () => reset,
+                      child: const Text('RESET'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 120,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.deepPurpleAccent[700]),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                      },
+                      child: Text(isRunning == true ? 'PAUSE' : 'GO!'),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 120,
+                    child: TextButton(
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                            Colors.deepPurpleAccent[700]),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isRunning = !isRunning;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: Text('STOP'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        bottomNavigationBar: bottom(context));
+      ),
+      bottomNavigationBar: bottom(context),
+    );
   }
 }

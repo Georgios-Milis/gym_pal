@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-// This other dependency doesn't have picker for seconds...
-//import 'package:duration_picker/duration_picker.dart';
-
 import 'package:duration_picker_dialog_box/duration_picker_dialog_box.dart';
+import 'package:speech_balloon/speech_balloon.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -63,7 +61,13 @@ class _EditCounterWidgetState extends State<CounterWidget> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
-                      child: Text("${widget._count}"),
+                      child: Text(
+                        "${widget._count}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -268,14 +272,30 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                const Text(
-                                  "Hey pal! I'll be counting reps live to help you train!",
+                                const SpeechBalloon(
+                                  nipHeight: 24,
+                                  borderRadius: 20,
+                                  width: 400,
+                                  height: 60,
+                                  color: Colors.deepPurpleAccent,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      "Hey pal! I'll be counting reps live\n to help you train!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: "McLaren",
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Expanded(
-                                  flex: 6,
+                                SizedBox(
+                                  //flex: 6,
                                   child: Image.asset(
                                       'assets/images/panda-victorious.png'),
                                 ),
@@ -340,14 +360,30 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                const Text(
-                                  "Hey pal! I'll be timig you to help ypu train!",
+                                const SpeechBalloon(
+                                  nipHeight: 24,
+                                  borderRadius: 20,
+                                  width: 400,
+                                  height: 60,
+                                  color: Colors.deepPurpleAccent,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10.0),
+                                    child: Text(
+                                      "Hey pal! I'll be timing you \n to help you train!",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        fontFamily: "McLaren",
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Expanded(
-                                  flex: 6,
+                                SizedBox(
+                                  //flex: 6,
                                   child: Image.asset(
                                       'assets/images/panda-victorious.png'),
                                 ),
