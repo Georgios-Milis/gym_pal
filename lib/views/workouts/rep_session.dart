@@ -85,13 +85,12 @@ class _RepSession extends State<RepSession> {
         if (duration.inSeconds % pace == 0) addcnt();
 
         if (counter_reps == reps && counter_sets == sets) {
-          finished = true;
           //if (await Vibration.hasVibrator()) {
           //  Vibration.vibrate();
           //}
-          if (finished) {
-            finished = false;
+          if (finished == false) {
             finish();
+            finished = true;
           }
         }
       });
