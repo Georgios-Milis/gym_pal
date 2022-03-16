@@ -93,20 +93,12 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
   }
 
   Widget _buildWorkoutList() {
-    editAction(context) {
-      inspect(context);
-      return 0;
-    }
-
-    deleteAction(context) {
-      inspect(context);
-      return 0;
-    }
-
     return ListView.separated(
       padding: const EdgeInsets.all(16),
       itemCount: _workouts.length,
-      separatorBuilder: (context, index) => const Divider(),
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.black,
+      ),
       itemBuilder: (context, index) {
         return Slidable(
           key: ValueKey(index),
@@ -114,52 +106,60 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             extentRatio: 0.50,
             motion: const ScrollMotion(),
             children: [
-              SlidableAction(
-                // onPressed: _addEntry(_workouts[index], index, edit: true),
-                onPressed: editAction,
-                backgroundColor: const Color(0xFF0516B6),
-                foregroundColor: Colors.white,
-                icon: Icons.edit_outlined,
-                autoClose: true,
-                label: 'Edit',
-              ),
-              SlidableAction(
-                // onPressed: _addEntry(_workouts[index], index, edit: true),
-                onPressed: deleteAction,
-                backgroundColor: const Color.fromARGB(255, 216, 5, 5),
-                foregroundColor: Colors.white,
-                icon: Icons.delete_outlined,
-                autoClose: true,
-                label: 'Delete',
-              ),
-              // Expanded(
-              //   flex: 5,
-              //   child: IconButton(
-              //     tooltip: "Edit",
-              //     icon: const Icon(Icons.edit_outlined),
-              //     onPressed: () =>
-              //         _addEntry(_workouts[index], index, edit: true),
-              //   ),
+              // SlidableAction(
+              //   // onPressed: _addEntry(_workouts[index], index, edit: true),
+              //   onPressed: editAction,
+              //   backgroundColor: const Color(0xFF0516B6),
+              //   foregroundColor: Colors.white,
+              //   icon: Icons.edit_outlined,
+              //   autoClose: true,
+              //   label: 'Edit',
               // ),
-              // Expanded(
-              //   flex: 5,
-              //   child: IconButton(
-              //     tooltip: "Delete",
-              //     icon: const Icon(Icons.delete_outlined),
-              //     onPressed: () {
-              //       setState(() {
-              //         _workouts.removeAt(index);
-              //       });
-              //     },
-              //   ),
+              // SlidableAction(
+              //   // onPressed: _addEntry(_workouts[index], index, edit: true),
+              //   onPressed: deleteAction,
+              //   backgroundColor: const Color.fromARGB(255, 216, 5, 5),
+              //   foregroundColor: Colors.white,
+              //   icon: Icons.delete_outlined,
+              //   autoClose: true,
+              //   label: 'Delete',
               // ),
+              Expanded(
+                flex: 5,
+                child: IconButton(
+                  color: const Color.fromARGB(255, 12, 121, 2),
+                  tooltip: "Edit",
+                  icon: const Icon(Icons.edit_outlined),
+                  onPressed: () =>
+                      _addEntry(_workouts[index], index, edit: true),
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: IconButton(
+                  color: const Color.fromARGB(255, 216, 5, 5),
+                  tooltip: "Delete",
+                  icon: const Icon(Icons.delete_outlined),
+                  onPressed: () {
+                    setState(() {
+                      _workouts.removeAt(index);
+                    });
+                  },
+                ),
+              ),
             ],
           ),
           child: ListTile(
-            title: Text(_workouts[index].title),
-            subtitle: Text(_workouts[index].timed
-                ? formatDuration(_workouts[index].duration)
-                : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps"),
+            title: Text(
+              _workouts[index].title,
+              style: const TextStyle(color: Colors.black),
+            ),
+            subtitle: Text(
+              _workouts[index].timed
+                  ? formatDuration(_workouts[index].duration)
+                  : "${_workouts[index].sets.toString()} sets, ${_workouts[index].reps.toString()} reps",
+              style: const TextStyle(color: Colors.black),
+            ),
             tileColor: Colors.tealAccent[400],
             selectedColor: Colors.tealAccent[400],
             selectedTileColor: Colors.tealAccent[400],
