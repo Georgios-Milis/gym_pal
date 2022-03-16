@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:gym_pal/views/home/home.dart';
 import 'dart:developer';
@@ -14,7 +16,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool _dark = false;
+  bool _dark = (ThemeMode.system == ThemeMode.dark);
 
   @override
   void dispose() {

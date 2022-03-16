@@ -276,10 +276,10 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                   nipHeight: 24,
                                   borderRadius: 20,
                                   width: 400,
-                                  height: 60,
+                                  height: 70,
                                   color: Colors.deepPurpleAccent,
                                   child: Padding(
-                                    padding: EdgeInsets.all(10.0),
+                                    padding: EdgeInsets.all(12.0),
                                     child: Text(
                                       "Hey pal! I'll be counting reps live\n to help you train!",
                                       textAlign: TextAlign.center,
@@ -364,10 +364,10 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                                   nipHeight: 24,
                                   borderRadius: 20,
                                   width: 400,
-                                  height: 60,
+                                  height: 70,
                                   color: Colors.deepPurpleAccent,
                                   child: Padding(
-                                    padding: EdgeInsets.all(10.0),
+                                    padding: EdgeInsets.all(12.0),
                                     child: Text(
                                       "Hey pal! I'll be timing you \n to help you train!",
                                       textAlign: TextAlign.center,
