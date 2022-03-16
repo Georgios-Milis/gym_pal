@@ -12,6 +12,9 @@ import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 
 class Home extends StatefulWidget {
+  final int initialIndex;
+
+  const Home({Key? key, this.initialIndex = 0}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -26,6 +29,16 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     pageController = PageController();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      // If pageIndex is not 0, then navigate to that index
+      if (widget.initialIndex != 0) {
+        pageController.jumpToPage(widget.initialIndex);
+        setState(() {
+          pageIndex = widget.initialIndex;
+        });
+      }
+    });
 
     // Detects when user signed in
     googleSignIn.onCurrentUserChanged.listen((account) {
@@ -86,10 +99,6 @@ class _HomeState extends State<Home> {
   }
 
   Scaffold buildAuthScreen() {
-    // return ElevatedButton(
-    //   onPressed: logout,
-    //   child: const Text('Logout'),
-    // );
     return Scaffold(
       appBar:
           header(context, isAppTitle: false, titleText: 'Welcome, $username!'),

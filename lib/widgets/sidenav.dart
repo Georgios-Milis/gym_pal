@@ -39,7 +39,7 @@ ListView sidenav(context) {
         title: const Text('Meet your Health Pal!'),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => Home(initialIndex: 1),
           ));
         },
       ),
