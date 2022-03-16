@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:gym_pal/views/home/home.dart';
 import 'dart:developer';
@@ -16,8 +14,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  bool _dark = (ThemeMode.system == ThemeMode.dark);
-
   @override
   void dispose() {
     super.dispose();
@@ -57,16 +53,14 @@ class _SettingsState extends State<Settings> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Switch(
-                        value: _dark,
+                        value:
+                            (Theme.of(context).brightness == Brightness.dark),
                         onChanged: (value) {
                           if (value) {
                             HCIApp.of(context)?.changeTheme(ThemeMode.dark);
                           } else {
                             HCIApp.of(context)?.changeTheme(ThemeMode.light);
                           }
-                          setState(() {
-                            _dark = value;
-                          });
                         },
                       ),
                     ),
