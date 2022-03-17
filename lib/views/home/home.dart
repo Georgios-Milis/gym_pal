@@ -44,13 +44,13 @@ class _HomeState extends State<Home> {
     googleSignIn.onCurrentUserChanged.listen((account) {
       handleSignIn(account);
     }, onError: (err) {
-      print('Error signing in: $err');
+      // print('Error signing in: $err');
     });
     // Silently reauthenticate user when app is opened
     googleSignIn.signInSilently(suppressErrors: false).then((account) {
       handleSignIn(account);
     }).catchError((err) {
-      print('Error signing in: $err');
+      // print('Error signing in: $err');
     });
   }
 
@@ -170,7 +170,13 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: TextFormField(
+                        style: const TextStyle(
+                          color: Colors.black,
+                        ),
                         decoration: const InputDecoration(
+                          hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 151, 151, 151),
+                          ),
                           filled: true,
                           fillColor: Color.fromRGBO(255, 255, 255, 1),
                           hintText: "Enter your username",
