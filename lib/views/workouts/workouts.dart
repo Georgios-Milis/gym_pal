@@ -103,7 +103,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         return Slidable(
           key: ValueKey(index),
           endActionPane: ActionPane(
-            extentRatio: 0.50,
+            extentRatio: 0.2,
             motion: const ScrollMotion(),
             children: [
               // SlidableAction(
