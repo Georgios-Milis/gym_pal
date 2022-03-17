@@ -4,14 +4,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
-
-//import 'package:vibration/vibration.dart';
 
 bool volumeClick = true;
 bool isRunning = false;
@@ -118,6 +117,7 @@ class _RepSession extends State<RepSession> {
   }
 
   void finish() async {
+    Vibrate.vibrate();
     await congrats();
   }
 
