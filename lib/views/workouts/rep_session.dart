@@ -36,6 +36,8 @@ class _RepSession extends State<RepSession> {
   Timer? timer;
 
   bool finished = false;
+  bool repBreak = false;
+  int breakInSeconds = 10;
 
   @override
   void initState() {
@@ -55,13 +57,7 @@ class _RepSession extends State<RepSession> {
 
   // @todo: reset does not work properly.
   // @todo: add delay between reps and some tts messages. E.g:
-  // tts.speak("Set $counter_sets is done!");
-  // tts.speak("Let's take a break!");
-  // sleep(Duration(seconds: 10));
-  // tts.speak("Ready for the next set?");
-  // sleep(Duration(seconds: 3));
-  // tts.speak("Let's go!");
-  // sleep(Duration(seconds: 1));
+
   void reset() {
     counter_reps = 0;
     counter_sets = 1;
@@ -84,12 +80,12 @@ class _RepSession extends State<RepSession> {
         if (duration.inSeconds % pace == 0) addcnt();
 
         if (counter_reps == reps && counter_sets == sets) {
-          //if (await Vibration.hasVibrator()) {
-          //  Vibration.vibrate();
-          //}
           if (finished == false) {
+            sleep(Duration(seconds: 3));
             finish();
-            finished = true;
+            setState(() {
+              finished = true;
+            });
           }
         }
       });
@@ -101,19 +97,43 @@ class _RepSession extends State<RepSession> {
   }
 
   void addcnt() {
-    if (counter_reps != reps) {
-      counter_reps += 1;
+    if (repBreak) {
+      breakHandler();
+    } else if (counter_reps != reps) {
+      setState(() {
+        counter_reps++;
+      });
       if (!volumeClick) {
         tts.speak('$counter_reps');
       }
     }
     if (counter_reps == reps && counter_sets != sets) {
-      counter_reps = 0;
-      counter_sets += 1;
-      if (!volumeClick) {
-        tts.speak('Set $counter_sets');
-      }
+      setState(() {
+        repBreak = true;
+      });
     }
+  }
+
+  void breakHandler() {
+    if (!volumeClick) {
+      tts.speak("Set $counter_sets is done!");
+      tts.speak("Let's take a break!");
+    }
+    sleep(Duration(seconds: breakInSeconds));
+    setState(() {
+      counter_reps = 0;
+      counter_sets++;
+    });
+    if (!volumeClick) {
+      tts.speak("Ready for the next set?");
+      sleep(Duration(seconds: 3));
+      tts.speak("Let's go!");
+      sleep(Duration(seconds: 1));
+      tts.speak('Set $counter_sets');
+    }
+    setState(() {
+      repBreak = false;
+    });
   }
 
   void finish() async {
