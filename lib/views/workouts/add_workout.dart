@@ -126,11 +126,29 @@ class ViewEditWorkoutWidget extends StatefulWidget {
   State<StatefulWidget> createState() => _ViewEditWorkoutWidgetState();
 }
 
-class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
+class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget>
+    with TickerProviderStateMixin {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _scrollController = ScrollController();
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 2);
+    _titleController.text = lastEntry.title;
+    _tabController.index = (lastEntry.timed == true) ? 1 : 0;
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _scrollController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
 
   late Entry lastEntry = widget.lastEntry;
 
@@ -143,19 +161,6 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
       CounterWidget(title: "Reps: ", start: _reps);
 
   late Duration _duration = lastEntry.duration;
-
-  @override
-  void initState() {
-    super.initState();
-    _titleController.text = lastEntry.title;
-  }
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _scrollController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +191,7 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                     onPressed: () {
                       var k1 = _formKey1.currentState;
                       var k2 = _formKey2.currentState;
-                      int? index = DefaultTabController.of(context)!.index;
+                      int index = _tabController.index;
                       if (index == 0) {
                         if (k1 != null) {
                           if (k1.validate()) {
@@ -220,14 +225,16 @@ class _ViewEditWorkoutWidgetState extends State<ViewEditWorkoutWidget> {
                     color: Colors.white,
                   ),
                 ],
-                bottom: const TabBar(
+                bottom: TabBar(
+                  controller: _tabController,
                   tabs: [
-                    Tab(text: "REPETITIVE"),
-                    Tab(text: "TIMED"),
+                    const Tab(text: "REPETITIVE"),
+                    const Tab(text: "TIMED"),
                   ],
                 ),
               ),
               body: TabBarView(
+                controller: _tabController,
                 children: [
                   /*
                   * TAB 1
