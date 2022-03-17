@@ -1,17 +1,21 @@
+import 'dart:developer';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+
+import 'package:camera/camera.dart';
+
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
 import 'package:gym_pal/widgets/chart.dart';
-// import 'package:camera/camera.dart';
 import 'package:gym_pal/main.dart';
-import 'package:gym_pal/utilities/camera.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-// Future<void> cam() async {
-//   WidgetsFlutterBinding.ensureInitialized();
+Future<void> cam() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-//   cameras = await availableCameras();
-// }
+  cameras = await availableCameras();
+}
 
 class WeightChart extends StatefulWidget {
   const WeightChart({Key? key}) : super(key: key);
@@ -20,18 +24,38 @@ class WeightChart extends StatefulWidget {
 }
 
 class _WeightChartInState extends State<WeightChart> {
-  // late CameraController controller;
+  late CameraController controller;
+
+  late List<charts.Series<KgMonth, String>> _chartData;
+  bool initialData = true;
+  int currentWeight = 80;
+  final weightController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    // controller = CameraController(cameras[0], ResolutionPreset.max);
-    // controller.initialize();
+    controller = CameraController(cameras[0], ResolutionPreset.max);
+    controller.initialize();
   }
 
   @override
   void dispose() {
-    // controller.dispose();
+    controller.dispose();
     super.dispose();
+  }
+
+  drawChart(weight) {
+    // Get current month as string
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('MMM');
+    final String month = formatter.format(now);
+
+    final data = SimpleBarChart.getData();
+    // Push weight to data
+    data.add(KgMonth(month, weight));
+    final series = SimpleBarChart.buildChart(data, month);
+
+    return charts.BarChart(series, animate: true);
   }
 
   @override
@@ -59,7 +83,9 @@ class _WeightChartInState extends State<WeightChart> {
               child: SizedBox(
                 width: 400,
                 height: 200,
-                child: SimpleBarChart.withoutData(false),
+                child: (initialData)
+                    ? SimpleBarChart.withoutData(false)
+                    : drawChart(currentWeight),
               ),
             ),
             const Expanded(
@@ -89,9 +115,9 @@ class _WeightChartInState extends State<WeightChart> {
                       color: const Color.fromARGB(255, 96, 8, 114),
                       iconSize: 48,
                       onPressed: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => OCRCamera()));
-                        // builder: (context) => CameraPreview(controller)));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => OCRCamera()));
+                            builder: (context) => CameraPreview(controller)));
                       },
                       icon: const Icon(Icons.camera_alt)),
                   IconButton(
@@ -115,9 +141,12 @@ class _WeightChartInState extends State<WeightChart> {
         context: context,
         builder: (context) => AlertDialog(
           title: const Text('Your Weight'),
-          content: const TextField(
-              autofocus: true,
-              decoration: InputDecoration(hintText: 'Enter your weight')),
+          content: TextField(
+            controller: weightController,
+            keyboardType: TextInputType.number,
+            autofocus: true,
+            decoration: const InputDecoration(hintText: 'Enter your weight'),
+          ),
           actions: [
             TextButton(
               child: const Text('Cancel',
@@ -127,11 +156,20 @@ class _WeightChartInState extends State<WeightChart> {
               onPressed: Navigator.of(context).pop,
             ),
             TextButton(
-              child: const Text('Log',
-                  style: TextStyle(
-                    color: Colors.deepPurpleAccent,
-                  )),
-              onPressed: Navigator.of(context).pop,
+              child: const Text(
+                'Log',
+                style: TextStyle(
+                  color: Colors.deepPurpleAccent,
+                ),
+              ),
+              onPressed: () => {
+                setState(() {
+                  initialData = false;
+                  // Get current weight from text field
+                  currentWeight = int.parse(weightController.text);
+                  Navigator.of(context).pop();
+                }),
+              },
             ),
           ],
         ),

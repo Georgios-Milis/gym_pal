@@ -19,7 +19,12 @@ class SimpleBarChart extends StatelessWidget {
 
   /// Create one series with sample hard coded data.
   static List<charts.Series<KgMonth, String>> _createSampleData() {
-    final data = [
+    final data = getData();
+    return buildChart(data, "Feb");
+  }
+
+  static getData() {
+    return [
       KgMonth('Jul', 75),
       KgMonth('Aug', 80),
       KgMonth('Sep', 83),
@@ -29,12 +34,14 @@ class SimpleBarChart extends StatelessWidget {
       KgMonth('Jan', 80),
       KgMonth('Feb', 82),
     ];
+  }
 
+  static buildChart(data, month) {
     return [
       charts.Series<KgMonth, String>(
-          id: 'Sales',
+          id: 'Weight',
           colorFn: (KgMonth m, __) {
-            if (m.month == 'Feb') {
+            if (m.month == month) {
               return charts.ColorUtil.fromDartColor(Colors.deepPurpleAccent);
             } else {
               return charts.ColorUtil.fromDartColor(Colors.grey);
