@@ -117,7 +117,10 @@ class _RepSession extends State<RepSession> {
   }
 
   void finish() async {
-    Vibrate.vibrate();
+    bool canVibrate = await Vibrate.canVibrate;
+    if (canVibrate) {
+      Vibrate.vibrate();
+    }
     await congrats();
   }
 
@@ -143,7 +146,6 @@ class _RepSession extends State<RepSession> {
 
   @override
   Widget build(BuildContext context) {
-    inspect(widget.wk);
     title = widget.wk.title;
     sets = widget.wk.sets;
     reps = widget.wk.reps;
