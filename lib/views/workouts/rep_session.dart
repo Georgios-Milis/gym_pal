@@ -57,10 +57,8 @@ class _RepSession extends State<RepSession> {
 
   void reset() {
     setState(() {isRunning = false;
-    timer?.cancel();
     counter_reps = 0;
     counter_sets = 1;
-    timer?.cancel();
     duration = du;
     } );
   }
