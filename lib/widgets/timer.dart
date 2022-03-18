@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 
 import 'package:gym_pal/views/workouts/timed_session.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
@@ -39,6 +40,13 @@ class _CountdownPageState extends State<CountdownPage> {
     setState(() => duration = du);
   }
 
+  void resetBtn() {
+    setState(() {
+      duration = du;
+      isRunning = false;
+    });
+  }
+
   void stopTimer() {
     setState(() => timer?.cancel());
   }
@@ -49,6 +57,34 @@ class _CountdownPageState extends State<CountdownPage> {
     super.dispose();
   }
 
+  void finish() async {
+    bool canVibrate = await Vibrate.canVibrate;
+    if (canVibrate) {
+      Vibrate.vibrate();
+    }
+    await congrats();
+  }
+
+  Future<void> congrats() {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('You did this!'),
+          content: Image.asset('assets/images/panda-victorious.png'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () =>
+                  Navigator.of(context, rootNavigator: true).pop('dialog'),
+              child: const Text('Thanks!'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void addTime() {
     const addSeconds = -1;
     if (duration == du && isRunning == true && !volumeClick) {
@@ -56,9 +92,6 @@ class _CountdownPageState extends State<CountdownPage> {
       sleep(Duration(seconds: 3));
       tts.speak("Go!");
       sleep(Duration(seconds: 1));
-      // @todo: fix! we are losing a second here because the next addTime
-      // has already been called and is updating the duration at the same
-      // time with the tts addTime.
     }
     if (isRunning == true) {
       setState(() {
@@ -67,9 +100,12 @@ class _CountdownPageState extends State<CountdownPage> {
           tts.speak('Time is up. Well done pal!');
         }
         if (seconds <= 0) {
-          timer?.cancel();
-          isRunning = false;
-          reset();
+          // timer?.cancel();
+
+          // isRunning = false;
+          resetBtn();
+          finish();
+          // reset();
         }
         var durPerc = seconds % 20;
         if (durPerc == 0 && seconds != 0 && seconds < 61 && !volumeClick) {
@@ -80,15 +116,16 @@ class _CountdownPageState extends State<CountdownPage> {
       });
     }
     if (r == true) {
+      resetBtn();
       r = false;
-      setState(() {
-        final seconds = duration.inSeconds + addSeconds;
-        if (seconds <= 0) {
-          timer?.cancel();
-        }
+      // setState(() {
+      //   final seconds = duration.inSeconds + addSeconds;
+      //   if (seconds <= 0) {
+      //     timer?.cancel();
+      //   }
 
-        duration = du;
-      });
+      //   duration = du;
+      // });
     }
   }
 

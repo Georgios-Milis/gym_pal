@@ -24,6 +24,7 @@ class _TimedSession extends State<TimedSession> {
   late Duration d = const Duration();
   late String? title;
   late CountdownPage tmr;
+
   @override
   Widget build(BuildContext context) {
     if (widget.wk.duration != null) d = widget.wk.duration!;
@@ -109,7 +110,7 @@ class _TimedSession extends State<TimedSession> {
                             isRunning = !isRunning;
                           });
                         },
-                        child: Text(isRunning == true ? 'PAUSE' : 'GO!'),
+                        child: Text(isRunning ? 'PAUSE' : 'GO!'),
                       ),
                     ),
                     SizedBox(

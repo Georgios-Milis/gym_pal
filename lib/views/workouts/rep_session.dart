@@ -37,7 +37,7 @@ class _RepSession extends State<RepSession> {
 
   bool finished = false;
   bool repBreak = false;
-  int breakInSeconds = 10;
+  int breakInSeconds = 2;
 
   @override
   void initState() {
@@ -56,11 +56,12 @@ class _RepSession extends State<RepSession> {
   }
 
   void reset() {
-    setState(() {isRunning = false;
-    counter_reps = 0;
-    counter_sets = 1;
-    duration = du;
-    } );
+    setState(() {
+      isRunning = false;
+      counter_reps = 0;
+      counter_sets = 1;
+      duration = du;
+    });
   }
 
   void stopTimer() {
@@ -81,11 +82,10 @@ class _RepSession extends State<RepSession> {
 
         if (counter_reps == reps && counter_sets == sets) {
           if (finished == false) {
-            sleep(Duration(seconds: 3));
-            finish();
             setState(() {
               finished = true;
             });
+            finish();
           }
         }
       });
