@@ -56,13 +56,17 @@ class _RepSession extends State<RepSession> {
   }
 
   void reset() {
+    setState(() {isRunning = false;
+    timer?.cancel();
     counter_reps = 0;
     counter_sets = 1;
-    setState(() => timer?.cancel());
-    setState(() => {duration = du});
+    timer?.cancel();
+    duration = du;
+    } );
   }
 
   void stopTimer() {
+    isRunning = false;
     setState(() => timer?.cancel());
   }
 
@@ -362,7 +366,7 @@ class _RepSession extends State<RepSession> {
                         backgroundColor: MaterialStateProperty.all(
                             Colors.deepPurpleAccent[700]),
                       ),
-                      onPressed: () => reset,
+                      onPressed: () => reset(),
                       child: const Text('RESET'),
                     ),
                   ),
