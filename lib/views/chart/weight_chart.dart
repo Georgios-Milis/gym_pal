@@ -73,9 +73,7 @@ class _WeightChartInState extends State<WeightChart> {
               child: Text(
                 "Last 8 months",
                 style: TextStyle(
-                    fontSize: 48,
-                    fontFamily: "Signatra",
-                    color: Color.fromARGB(255, 96, 8, 114)),
+                    fontSize: 48, color: Color.fromARGB(255, 96, 8, 114)),
               ),
             ),
             Expanded(
@@ -94,7 +92,7 @@ class _WeightChartInState extends State<WeightChart> {
                 "Log your weight now!",
                 style: TextStyle(
                     fontSize: 48,
-                    fontFamily: "Signatra",
+                    fontFamily: "McLaren",
                     color: Color.fromARGB(255, 96, 8, 114)),
               ),
             ),

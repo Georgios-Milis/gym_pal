@@ -43,7 +43,6 @@ class _SettingsState extends State<Settings> {
                         "Dark mode",
                         style: TextStyle(
                           fontSize: 48,
-                          fontFamily: "Signatra",
                         ),
                       ),
                     ),
