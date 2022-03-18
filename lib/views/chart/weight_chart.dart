@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 import 'package:camera/camera.dart';
+import 'package:speech_balloon/speech_balloon.dart';
 
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
@@ -70,27 +71,41 @@ class _WeightChartInState extends State<WeightChart> {
           children: <Widget>[
             const Expanded(
               flex: 1,
-              child: Text(
-                "Last 8 months",
+              child: Padding(
+                padding: EdgeInsets.all(18),
+                child: Text(
+                  "Last 8 months",
+                  style: TextStyle(fontSize: 18),
+                ),
               ),
             ),
             Expanded(
               flex: 3,
               child: SizedBox(
                 width: 400,
-                height: 200,
                 child: (initialData)
                     ? SimpleBarChart.withoutData(false)
                     : drawChart(currentWeight),
               ),
             ),
+            const SizedBox(
+              width: 50,
+              height: 50,
+            ),
             const Expanded(
               flex: 1,
-              child: Text(
-                "Log your weight now!",
-                style: TextStyle(
-                    fontSize: 48,
-                    fontFamily: "McLaren"
+              child: SpeechBalloon(
+                nipHeight: 24,
+                borderRadius: 20,
+                width: 400,
+                height: 70,
+                color: Colors.deepPurpleAccent,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text(
+                    "Log your weight now!",
+                    style: TextStyle(fontSize: 25, fontFamily: "McLaren"),
+                  ),
                 ),
               ),
             ),
@@ -143,7 +158,8 @@ class _WeightChartInState extends State<WeightChart> {
           ),
           actions: [
             TextButton(
-              child: const Text('Cancel',
+              child: const Text(
+                'Cancel',
               ),
               onPressed: Navigator.of(context).pop,
             ),
