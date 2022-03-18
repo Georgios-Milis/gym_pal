@@ -9,7 +9,6 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:gym_pal/widgets/header.dart';
 import 'package:gym_pal/widgets/sidenav.dart';
 import 'package:gym_pal/widgets/bottom.dart';
-import 'package:gym_pal/widgets/timer.dart';
 import 'package:gym_pal/views/workouts/workouts.dart';
 
 bool volumeClick = true;
@@ -37,7 +36,7 @@ class _RepSession extends State<RepSession> {
 
   bool finished = false;
   bool repBreak = false;
-  int breakInSeconds = 2;
+  int breakInSeconds = 10;
 
   @override
   void initState() {
@@ -60,7 +59,7 @@ class _RepSession extends State<RepSession> {
       isRunning = false;
       counter_reps = 0;
       counter_sets = 1;
-      duration = du;
+      duration = Duration(seconds: 0);
     });
   }
 
