@@ -72,8 +72,6 @@ class _WeightChartInState extends State<WeightChart> {
               flex: 1,
               child: Text(
                 "Last 8 months",
-                style: TextStyle(
-                    fontSize: 48, color: Color.fromARGB(255, 96, 8, 114)),
               ),
             ),
             Expanded(
@@ -92,8 +90,8 @@ class _WeightChartInState extends State<WeightChart> {
                 "Log your weight now!",
                 style: TextStyle(
                     fontSize: 48,
-                    fontFamily: "McLaren",
-                    color: Color.fromARGB(255, 96, 8, 114)),
+                    fontFamily: "McLaren"
+                ),
               ),
             ),
             Expanded(
@@ -110,7 +108,6 @@ class _WeightChartInState extends State<WeightChart> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   IconButton(
-                      color: const Color.fromARGB(255, 96, 8, 114),
                       iconSize: 48,
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -119,7 +116,6 @@ class _WeightChartInState extends State<WeightChart> {
                       },
                       icon: const Icon(Icons.camera_alt)),
                   IconButton(
-                      color: const Color.fromARGB(255, 96, 8, 114),
                       iconSize: 48,
                       icon: const Icon(Icons.create_rounded),
                       onPressed: () {
@@ -148,17 +144,12 @@ class _WeightChartInState extends State<WeightChart> {
           actions: [
             TextButton(
               child: const Text('Cancel',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 37, 34, 34),
-                  )),
+              ),
               onPressed: Navigator.of(context).pop,
             ),
             TextButton(
               child: const Text(
                 'Log',
-                style: TextStyle(
-                  color: Colors.deepPurpleAccent,
-                ),
               ),
               onPressed: () => {
                 setState(() {

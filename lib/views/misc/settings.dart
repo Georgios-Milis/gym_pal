@@ -42,7 +42,7 @@ class _SettingsState extends State<Settings> {
                       child: Text(
                         "Dark mode",
                         style: TextStyle(
-                          fontSize: 48,
+                          fontSize: 32,
                         ),
                       ),
                     ),

@@ -55,12 +55,10 @@ class _RepSession extends State<RepSession> {
     super.dispose();
   }
 
-  // @todo: reset does not work properly.
-  // @todo: add delay between reps and some tts messages. E.g:
-
   void reset() {
     counter_reps = 0;
     counter_sets = 1;
+    setState(() => timer?.cancel());
     setState(() => {duration = du});
   }
 
